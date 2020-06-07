@@ -12,7 +12,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    spreadsheets: [],
+    windowSize: '', // размер экрана
+    spreadsheets: [], // данные из Google Таблицы
     products: []
   },
   mutations,
