@@ -14,7 +14,7 @@ export default new Vuex.Store({
   state: {
     windowSize: '', // размер экрана
     spreadsheets: [], // данные из Google Таблицы
-    products: []
+    products: [] // очищенные данные из Google Таблицы
   },
   mutations,
   actions,

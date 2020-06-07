@@ -4,5 +4,8 @@ export default {
   },
   GET_WINDOW_TYPE (state) {
     return state.windowSize
+  },
+  GET_PROCESSED_SPREADSHEETS (state) {
+    return state.products
   }
 }

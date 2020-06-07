@@ -45,9 +45,6 @@ export default {
       vm.windowWidth = window.innerWidth
       vm.windowType = switchWindowType(vm.windowWidth) // имея размер определяем тип через функцию, где сопаставлены размеры и тип
       vm.ACT_WINDOW_SIZE(vm.windowType) // обращаемся к экшену и передаём ему тип
-      // console.log(
-      //   "Window width is: " + windowWidth + "px and it is " + windowType
-      // );
     }
     listenWindowSize() // сразу вызываем написанную выше фунцию
     window.addEventListener('resize', function () { // запускаем всегда слушать изменения размера окна
