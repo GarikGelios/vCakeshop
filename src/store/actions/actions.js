@@ -1,5 +1,5 @@
 export default {
-  WINDOW_SIZE ({ commit }, size) {
-    commit('CHANGE_WINDOW_SIZE', size)
+  ACT_WINDOW_SIZE ({ commit }, size) {
+    commit('MUT_CHANGE_WINDOW_SIZE', size)
   }
 }

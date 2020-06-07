@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <small>window size: {{ this.WINDOW_TYPE }}</small>
+    <small>window size: {{ this.GET_WINDOW_TYPE }}</small>
     <v-header />
     <router-view />
   </div>
@@ -21,10 +21,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['WINDOW_TYPE'])
+    ...mapGetters(['GET_WINDOW_TYPE'])
   },
   methods: {
-    ...mapActions(['WINDOW_SIZE'])
+    ...mapActions(['ACT_WINDOW_SIZE'])
   },
   mounted () {
     const vm = this // для общего контекста, чтобы использовать его внутри функций
@@ -44,7 +44,7 @@ export default {
     function listenWindowSize () { // функция, которая будет измерять экран
       vm.windowWidth = window.innerWidth
       vm.windowType = switchWindowType(vm.windowWidth) // имея размер определяем тип через функцию, где сопаставлены размеры и тип
-      vm.WINDOW_SIZE(vm.windowType) // обращаемся к экшену и передаём ему тип
+      vm.ACT_WINDOW_SIZE(vm.windowType) // обращаемся к экшену и передаём ему тип
       // console.log(
       //   "Window width is: " + windowWidth + "px and it is " + windowType
       // );

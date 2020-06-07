@@ -19,9 +19,9 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
+    ...mapGetters(['GET_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
     productsFromSpreadsheets () { // вычисляемое свойство для итогового массива с продукцией
-      const gsx = this.SPREADSHEETS.feed.entry // сокращаем обращение в json до информации в ячейках
+      const gsx = this.GET_SPREADSHEETS.feed.entry // сокращаем обращение в json до информации в ячейках
       const arr = gsx.map(obj => { // map создаёт новый массив который будет содержать только необходимые ключи с красивым названием
         return { // если появятся новые столбцы с информацией их надо добавить в эту функцию
           published: obj.gsx$published.$t,
@@ -36,10 +36,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GET_SPREADSHEETS_FROM_API']) // чтобы из компонента сработал вызов api добавляю его метод из _vuex_
+    ...mapActions(['ACT_SPREADSHEETS_FROM_API']) // чтобы из компонента сработал вызов api добавляю его метод из _vuex_
   },
   mounted () {
-    this.GET_SPREADSHEETS_FROM_API() // как только компонент загружен, сразу вызываем api запрос на получение json из Google Таблиц
+    this.ACT_SPREADSHEETS_FROM_API() // как только компонент загружен, сразу вызываем api запрос на получение json из Google Таблиц
   }
 }
 </script>
