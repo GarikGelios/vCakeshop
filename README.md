@@ -25,6 +25,8 @@
 
 > Используя пресет с _vuex_ и _vue-router_ они сами создадут нужные папки и импортируют функции. Установить _axios_ надо самостоятельно
 
+> Используй **Prettier-Standard - JavaScript formatter** плагин, чтобы успокоить eslint
+
 ## Google Drive вместо админки
 
 1. Создал [папку](https://drive.google.com/drive/folders/10HQGzpGkPiUL1OgSpdZWzRZPTxSYxsni?usp=sharing) которая содержит картинки продукции и таблицу данные которой доступны из [json](https://spreadsheets.google.com/feeds/list/1PVWNPVPAZ8lPTJW4CkW95ybnRxT6G_SSX3RNNDdkWgg/1/public/full?alt=json)
