@@ -99,3 +99,23 @@
 6. Мутация принимает экшен и изменяет *store* ``CHANGE_WINDOW_SIZE(state, size) { state.windowSize = size; }``
 
 7. Выведи значение типа экрана в *getters* ``WINDOW_TYPE(state) { return state.windowSize; } ``, чтобы использовать его в компонентах, прим. ``<small>window size: {{ this.WINDOW_TYPE }}</small>``
+
+## Подключение Sass
+
+1. Укажи настройки в корневом файле **vue.config.js**
+
+```js
+module.exports = {
+    css: {
+        loaderOptions: {
+            scss: {
+                prependData: `@import "~@/assets/styles/styles.scss";`
+            },
+        }
+    }
+};
+```
+
+2. Сделай импорт в файл **main.js** `import './assets/styles/styles.scss'`
+
+3. В компоненте в блоке ``<style>`` укажи атрибут ``lang="scss"`` и можно писать стили сразу в scss

@@ -42,7 +42,7 @@ export default {
   align-items: center;
   max-width: 1200px;
   margin: auto;
-  padding: 30px 0;
+  padding: $padding;
   &_contacts {
     display: flex;
     &_phone{

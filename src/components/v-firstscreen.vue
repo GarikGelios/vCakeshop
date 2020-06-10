@@ -28,15 +28,23 @@ export default {
 
 <style lang="scss">
 .v-firstscreen {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: auto;
+  padding: $padding;
   &_text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 50%;
+    flex-basis: 600px;
     h1 {
       text-transform: uppercase;
+    }
+    p {
+      text-align: left;
     }
   }
 }
