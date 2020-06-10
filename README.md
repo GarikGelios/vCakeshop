@@ -119,3 +119,17 @@ module.exports = {
 2. Сделай импорт в файл **main.js** `import './assets/styles/styles.scss'`
 
 3. В компоненте в блоке ``<style>`` укажи атрибут ``lang="scss"`` и можно писать стили сразу в scss
+
+## Вывод каталога
+
+1. Создай новый массив с уникальными значениями категорий — их используй в меню `<div v-for="category in this.productCategories" :key="category"> {{ category }} </div>`
+
+```js
+productCategories () {
+  return [
+    ...new Set(
+      this.GET_PROCESSED_SPREADSHEETS.map(({ category }) => category)
+    )
+  ]
+}
+```

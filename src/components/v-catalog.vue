@@ -1,7 +1,12 @@
 <template>
   <div class="v-catalog">
     <h2>{{ msg }}</h2>
-    <div v-if="this.GET_PROCESSED_SPREADSHEETS.length">{{ this.GET_PROCESSED_SPREADSHEETS }}</div>
+    <div v-for="category in this.productCategories" :key="category">
+      {{ category }}
+    </div>
+    <div v-if="this.GET_PROCESSED_SPREADSHEETS.length">
+      {{ this.GET_PROCESSED_SPREADSHEETS }}
+    </div>
     <div v-else>waite producte ...</div>
   </div>
 </template>
@@ -21,7 +26,14 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']) // обратился к геттеру в store который хранит данные из Google Таблицы
+    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
+    productCategories () {
+      return [
+        ...new Set(
+          this.GET_PROCESSED_SPREADSHEETS.map(({ category }) => category)
+        )
+      ]
+    }
   },
   methods: {
     ...mapActions([
@@ -31,10 +43,11 @@ export default {
     productsFromSpreadsheets () {
       // вычисляемое свойство для итогового массива с продукцией
       const gsx = this.GET_SPREADSHEETS.feed.entry // сокращаем обращение в json до информации в ячейках
-      const arr = gsx.map(obj => {
+      const arr = gsx.map((obj, index) => {
         // map создаёт новый массив который будет содержать только необходимые ключи с красивым названием
         return {
           // если появятся новые столбцы с информацией их надо добавить в эту функцию
+          id: index,
           published: obj.gsx$published.$t,
           category: obj.gsx$category.$t,
           title: obj.gsx$title.$t,
