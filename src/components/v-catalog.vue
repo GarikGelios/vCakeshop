@@ -1,11 +1,16 @@
 <template>
   <div class="v-catalog">
     <h2>{{ msg }}</h2>
-    <div v-for="category in this.productCategories" :key="category">
-      {{ category }}
-    </div>
+    <v-catalog-menu :categories="productCategories" />
     <div v-if="this.GET_PROCESSED_SPREADSHEETS.length">
-      {{ this.GET_PROCESSED_SPREADSHEETS }}
+      <div v-for="product in this.GET_PROCESSED_SPREADSHEETS" :key="product.id">
+        <picture>
+      <img
+        :src="'https://drive.google.com/uc?export=view&id=' + product.img"
+        alt="cake"
+      />
+    </picture>
+      </div>
     </div>
     <div v-else>waite producte ...</div>
   </div>
@@ -13,9 +18,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import vCatalogMenu from '@/components/v-catalog-menu'
 
 export default {
   name: 'v-catalog',
+  components: {
+    vCatalogMenu
+  },
   props: {
     msg: {
       type: String,

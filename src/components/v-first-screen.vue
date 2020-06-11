@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'v-firstscreen'
+  name: 'v-first-screen'
 }
 </script>
 
