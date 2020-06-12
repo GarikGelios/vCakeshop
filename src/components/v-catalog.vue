@@ -1,15 +1,15 @@
 <template>
   <div class="v-catalog">
     <h2>{{ msg }}</h2>
-    <v-catalog-menu :categories="productCategories" />
+    <v-catalog-menu :categories="productCategories" @select="selectCategory" />
     <div v-if="this.GET_PROCESSED_SPREADSHEETS.length">
-      <div v-for="product in this.GET_PROCESSED_SPREADSHEETS" :key="product.id">
+      <div v-for="product in sortedProducts" :key="product.id">
         <picture>
-      <img
-        :src="'https://drive.google.com/uc?export=view&id=' + product.img"
-        alt="cake"
-      />
-    </picture>
+          <img
+            :src="'https://drive.google.com/uc?export=view&id=' + product.img"
+            alt="cake"
+          />
+        </picture>
       </div>
     </div>
     <div v-else>waite producte ...</div>
@@ -32,7 +32,9 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      sortedProducts: []
+    }
   },
   computed: {
     ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
@@ -49,6 +51,18 @@ export default {
       'ACT_SPREADSHEETS_FROM_API', // чтобы из компонента сработал вызов api добавляю его метод из vuex
       'ACT_PROCESSED_SPREADSHEETS_TO_STORE'
     ]),
+    selectCategory (valueCategory) {
+      this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS] // перед проверкой возобновляем массив
+
+      if (valueCategory !== 'all') { // проверяем, что если выбор вне списка категорий, то выводим все продукты
+        // если в опции что-то есть, то перебери массим сортированных продуктов
+        this.sortedProducts = this.sortedProducts.filter(function (product) {
+          return product.category === valueCategory
+        })
+      } else {
+        return this.GET_PROCESSED_SPREADSHEETS
+      }
+    },
     productsFromSpreadsheets () {
       // вычисляемое свойство для итогового массива с продукцией
       const gsx = this.GET_SPREADSHEETS.feed.entry // сокращаем обращение в json до информации в ячейках
@@ -74,6 +88,7 @@ export default {
         if (response.data) {
           console.log('Data arrived!')
           this.productsFromSpreadsheets() // и тут же превращаем в красивый массив
+          this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS]
         }
       })
   }
