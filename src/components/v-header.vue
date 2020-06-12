@@ -40,7 +40,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: $screenwidth * 2;
   margin: auto;
   padding: $padding;
   &_contacts {

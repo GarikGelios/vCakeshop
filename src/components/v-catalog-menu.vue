@@ -32,9 +32,6 @@
         >
       </li>
     </ul>
-    <p style="position: absolute; top: 5px; left: 5px;">
-      category: {{ li_checked }}
-    </p>
   </nav>
 </template>
 

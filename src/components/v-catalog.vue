@@ -1,29 +1,29 @@
 <template>
-  <div class="v-catalog">
+  <section class="v-catalog">
     <h2>{{ msg }}</h2>
     <v-catalog-menu :categories="productCategories" @select="selectCategory" />
-    <div v-if="this.GET_PROCESSED_SPREADSHEETS.length">
-      <div v-for="product in sortedProducts" :key="product.id">
-        <picture>
-          <img
-            :src="'https://drive.google.com/uc?export=view&id=' + product.img"
-            alt="cake"
-          />
-        </picture>
-      </div>
+    <div class="v-catalog_items" v-if="this.sortedProducts.length">
+      <v-catalog-item
+        v-for="product in sortedProducts"
+        :key="product.id"
+        :product_data="product"
+      />
     </div>
+    <!-- show preloader if data is not downloaded -->
     <div v-else>waite producte ...</div>
-  </div>
+  </section>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import vCatalogMenu from '@/components/v-catalog-menu'
+import vCatalogItem from '@/components/v-catalog-item'
 
 export default {
   name: 'v-catalog',
   components: {
-    vCatalogMenu
+    vCatalogMenu,
+    vCatalogItem
   },
   props: {
     msg: {
@@ -54,7 +54,8 @@ export default {
     selectCategory (valueCategory) {
       this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS] // перед проверкой возобновляем массив
 
-      if (valueCategory !== 'all') { // проверяем, что если выбор вне списка категорий, то выводим все продукты
+      if (valueCategory !== 'all') {
+        // проверяем, что если выбор вне списка категорий, то выводим все продукты
         // если в опции что-то есть, то перебери массим сортированных продуктов
         this.sortedProducts = this.sortedProducts.filter(function (product) {
           return product.category === valueCategory
@@ -76,7 +77,7 @@ export default {
           title: obj.gsx$title.$t,
           description: obj.gsx$description.$t,
           price: obj.gsx$price.$t,
-          img: obj.gsx$img.$t
+          img: obj.gsx$imglink.$t
         }
       })
       this.ACT_PROCESSED_SPREADSHEETS_TO_STORE(arr)
@@ -95,4 +96,14 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.v-catalog {
+  max-width: $screenwidth * 2;
+  margin: auto;
+  &_items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+</style>

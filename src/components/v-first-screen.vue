@@ -14,7 +14,7 @@
     <picture>
       <img
         src="https://drive.google.com/uc?export=view&id=1M7LWoBTfxnQa-oMBddgfJZl7SDARcsDU"
-        alt="cake"
+        alt="cake" width="100%"
       />
     </picture>
   </section>
@@ -32,7 +32,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: $screenwidth * 2;
   margin: auto;
   padding: $padding;
   &_text {
