@@ -1,25 +1,23 @@
 <template>
   <header class="v-header">
-    <picture>
-      <source
-        srcset="@/assets/logo/logo.svg"
-        media="(min-width: 600px)"
-        type="image/svg+xml"
-      />
-      <img src="@/assets/logo/logo.png" alt="logo" width="50" height="50" />
-    </picture>
-    <nav class="v-header_nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <router-link to="/">
+      <picture>
+        <source
+          srcset="@/assets/logo/logo.svg"
+          media="(min-width: 600px)"
+          type="image/svg+xml"
+        />
+        <img src="@/assets/logo/logo.png" alt="logo" width="100" height="100" />
+      </picture>
+    </router-link>
     <div class="v-header_contacts">
       <div class="v-header_contacts_phone">
         <a :href="'tel:' + phone">{{ phone }}</a>
         <p>Call to us</p>
       </div>
-      <button class="v-header_contacts_button btn btn-empty">
+      <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
         Make order: {{ productsInCart }} cake in cart
-      </button>
+      </router-link>
     </div>
   </header>
 </template>
@@ -61,6 +59,10 @@ export default {
     display: flex;
     &_phone {
       margin: 0 10px;
+      a {
+        font-weight: bold;
+        color: #2c3e50;
+      }
       p {
         margin: 0;
       }
@@ -68,8 +70,6 @@ export default {
   }
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
     text-decoration: none;
 
     &.router-link-exact-active {

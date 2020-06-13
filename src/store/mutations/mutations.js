@@ -10,10 +10,11 @@ export default {
   },
   MUT_ADD_TO_CART: (state, product) => {
     // принимает обект из экшена, когда нажали кнопку и добавляет его в массив cart: []
-    if (state.cart.length) { // если в state массива корзине количество товара не нулевое
+    if (state.cart.length) {
+      // если в state массива корзине количество товара не нулевое
       let isProductExists = false
       state.cart.map(function (item) {
-        if (item.title === product.title) {
+        if (item.id === product.id) {
           isProductExists = true
           item.quantity++
         }
@@ -24,5 +25,16 @@ export default {
     } else {
       state.cart.push({ ...product, quantity: 1 })
     }
+  },
+  MUT_DECREMENT (state, index) {
+    if (state.cart[index].quantity > 1) {
+      state.cart[index].quantity--
+    }
+  },
+  MUT_INCREMENT (state, index) {
+    state.cart[index].quantity++
+  },
+  MUT_REMOVE_FROM_CART: (state, index) => {
+    state.cart.splice(index, 1)
   }
 }

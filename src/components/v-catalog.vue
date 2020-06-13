@@ -38,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS', 'GET_CART']), // обратился к геттеру в store который хранит данные из Google Таблицы
+    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
     productCategories () {
       return [
         ...new Set(

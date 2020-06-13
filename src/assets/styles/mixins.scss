@@ -15,9 +15,11 @@
   background-color: $color-primary;
   color: $color-light;
   border-radius: 50px;
+  border: 1px solid $color-primary;
+  padding: $padding;
   &-empty {
     background: transparent;
-    color: $color-dark;
+    color: $color-primary;
   }
   &:focus{
     outline: none;
