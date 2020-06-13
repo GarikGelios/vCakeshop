@@ -133,3 +133,5 @@ productCategories () {
   ]
 }
 ```
+
+2. Создал в каталоге массив `sortedProducts: []` в который попадают товары по переданному параметру из компонента *v-catalog-menu* через принятие в родителе `@select="selectCategory"`

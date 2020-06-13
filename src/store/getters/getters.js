@@ -7,5 +7,8 @@ export default {
   },
   GET_PROCESSED_SPREADSHEETS (state) {
     return state.products
+  },
+  GET_CART (state) {
+    return state.cart
   }
 }

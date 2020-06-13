@@ -9,7 +9,7 @@
         Freshly baked home-made cakes, made only from natural products,
         according to the highest individual order, made with love.
       </p>
-      <button>Show menu</button>
+      <button class="v-firstscreen-button btn">Show menu</button>
     </div>
     <picture>
       <img

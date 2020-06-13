@@ -10,3 +10,16 @@
   -o-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
 }
+
+@mixin btn {
+  background-color: $color-primary;
+  color: $color-light;
+  border-radius: 50px;
+  &-empty {
+    background: transparent;
+    color: $color-dark;
+  }
+  &:focus{
+    outline: none;
+  }
+}

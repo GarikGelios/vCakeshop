@@ -14,19 +14,33 @@
     </nav>
     <div class="v-header_contacts">
       <div class="v-header_contacts_phone">
-        <a :href='"tel:" + phone'>{{ phone }}</a>
+        <a :href="'tel:' + phone">{{ phone }}</a>
         <p>Call to us</p>
       </div>
-      <button class="v-header_contacts_button">
-        Make order
+      <button class="v-header_contacts_button btn btn-empty">
+        Make order: {{ productsInCart }} cake in cart
       </button>
     </div>
   </header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'v-header',
+  computed: {
+    ...mapGetters(['GET_CART']),
+    productsInCart () {
+      if (this.GET_CART.length === 0) {
+        return 0 // по умолчанию в корзине 0
+      } else {
+        return this.GET_CART.reduce(function (sum, cake) {
+          return sum + cake.quantity // считаю количество продукта каждого вида, сумма всех quantity продуктов в корзине
+        }, 0)
+      }
+    }
+  },
   data () {
     return {
       phone: '+0123456789'
@@ -45,15 +59,11 @@ export default {
   padding: $padding;
   &_contacts {
     display: flex;
-    &_phone{
+    &_phone {
       margin: 0 10px;
       p {
         margin: 0;
       }
-    }
-    &_button{
-      background: transparent;
-      border-radius: 50px;
     }
   }
 

@@ -7,6 +7,7 @@
         v-for="product in sortedProducts"
         :key="product.id"
         :product_data="product"
+        @addToCart="addToCart"
       />
     </div>
     <!-- show preloader if data is not downloaded -->
@@ -37,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
+    ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS', 'GET_CART']), // обратился к геттеру в store который хранит данные из Google Таблицы
     productCategories () {
       return [
         ...new Set(
@@ -49,8 +50,12 @@ export default {
   methods: {
     ...mapActions([
       'ACT_SPREADSHEETS_FROM_API', // чтобы из компонента сработал вызов api добавляю его метод из vuex
-      'ACT_PROCESSED_SPREADSHEETS_TO_STORE'
+      'ACT_PROCESSED_SPREADSHEETS_TO_STORE', // переработанный список товаров, с нормальными ключами
+      'ACT_ADD_TO_CART' // для передачи в store продукта, в корзину
     ]),
+    addToCart (data) {
+      this.ACT_ADD_TO_CART(data)
+    },
     selectCategory (valueCategory) {
       this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS] // перед проверкой возобновляем массив
 

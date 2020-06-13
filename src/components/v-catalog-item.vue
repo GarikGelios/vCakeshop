@@ -4,13 +4,16 @@
     <picture>
       <img
         :src="'https://drive.google.com/uc?export=view&id=' + product_data.img"
-        alt="cake" width="100%"
+        alt="cake"
+        width="100%"
       />
     </picture>
     <h3>{{ product_data.category }} "{{ product_data.title }}"</h3>
     <p>{{ product_data.description }}</p>
     <p>{{ product_data.price }} €</p>
-    <button>Buy it</button>
+    <button>Buy now</button>
+    <!-- вызываю метод добавления в корзину -->
+    <button @click="addToCart">Add to cart</button>
   </div>
 </template>
 
@@ -23,6 +26,11 @@ export default {
       default () {
         return []
       }
+    }
+  },
+  methods: {
+    addToCart () {
+      this.$emit('addToCart', this.product_data) // отправляю событие наверх, к родительскому компоненту со всем содержимым этого продукта
     }
   }
 }
