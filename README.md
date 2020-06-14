@@ -139,3 +139,76 @@ productCategories () {
 3. Создал в *store* массив `cart: []` в который передаются уникальные значения по уникальному *id*
 
 4. Добавил кнопки управления товаром в корзине: увеличить, уменьшить и удалить — из конкрентного товара передаю событие в родитель, т.к. нужен *index* с которым перебераем массив
+
+## Nodemailer — ошибка с dns
+
+> Vue это клиентский фреймворк, а отправка должна идти с серверной стороны... пока не разобрался
+
+1. Установи необходимые пакеты `npm i body-parser -S`, `npm i dotenv -S` и сам `npm i nodemailer -S`
+
+2. Импортируй установленные пакеты в *main.js* `import bodyParser from '@/../node_modules/body-parser'` и `import mailer from '@/../node_modules/nodemailer'`
+
+3. настрой отправку сообщений в *main.js*:
+
+```js
+Vue.use(bodyParser.urlencoded({ extend: false }));
+// app.use(bodyParser.json());
+Vue.post('/', (req, res) => {
+  // console.log(req.body);
+  const message = {
+    from: 'Имя отправителя <почта@отправителя.com>', // sender address
+    to: `почта@получателя.com`, // list of receivers
+    subject: 'Тема сообщения', // Subject line
+    html: `<table style="max-width:580px">
+      <td colspan="3">${req.body.text}</td>
+    </tr>
+    </table>`
+  }
+  mailer(message);
+  res.redirect('/');
+})
+```
+
+4. Оберни форму в тег *form* с атрибутами `method="POST" action="/"` и кнопку вызова метода
+
+5. Cоздай файл *.env* и укажи там логи и пароль от почты: `PASSWORD=пароль EMAIL=логин`
+
+6. создай файл *nodemailer.js* и заполни (пример для Gmail):
+
+```js
+'use strict'
+require('dotenv').config();
+
+const nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com', // Сервер исходящей почты (SMTP) из настроек Gmail
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: process.env.EMAIL,   // тянется из .env
+        pass: process.env.PASSWORD // тянется из .env
+    }
+});
+
+const mailer = message => {
+    transporter.sendMail(message, (err, info) =>{
+        if(err) return console.log(err);
+        console.log(`Email sent: `, info);
+    })
+};
+
+module.exports = mailer;
+```
+
+> ...ошибка с dns. Если установишь npm пакет dns ляснется всё
+
+варианты:
+
+- https://getsimpleform.com/
+- https://github.com/eahefnawy/lambda-mailer#envelope-lambda-mailer
+- https://www.emailjs.com/
+- https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server
+- https://www.digitalocean.com/community/tutorials/how-to-build-a-lightweight-invoicing-app-with-vue-and-node-jwt-authentication-and-sending-invoices
+- https://habr.com/ru/post/457580/
