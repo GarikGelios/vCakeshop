@@ -140,15 +140,23 @@ productCategories () {
 
 4. Добавил кнопки управления товаром в корзине: увеличить, уменьшить и удалить — из конкрентного товара передаю событие в родитель, т.к. нужен *index* с которым перебераем массив
 
-## Nodemailer — ошибка с dns
+> Vue это клиентский фреймворк, а отправка писем должна идти с серверной стороны
 
-> Vue это клиентский фреймворк, а отправка должна идти с серверной стороны... пока не разобрался
+## backend server.js 
+
+1. Установи пакет `npm install -S express`
+
+2. Создай в корне проекта файл *server.js* и настрой сервер брать исходники из папки билда Vue `app.use('/', express.static(path.join(__dirname, '/dist')));`
+
+3. Сделай билд Vue `npm run build` и потом запусти сервер `node server.js`
+
+## Nodemailer — ошибка с dns
 
 1. Установи необходимые пакеты `npm i body-parser -S`, `npm i dotenv -S` и сам `npm i nodemailer -S`
 
-2. Импортируй установленные пакеты в *main.js* `import bodyParser from '@/../node_modules/body-parser'` и `import mailer from '@/../node_modules/nodemailer'`
+2. Импортируй установленные пакеты в *server.js* `import bodyParser from '@/../node_modules/body-parser'` и `import mailer from '@/../node_modules/nodemailer'`
 
-3. настрой отправку сообщений в *main.js*:
+3. настрой отправку сообщений в *server.js*:
 
 ```js
 Vue.use(bodyParser.urlencoded({ extend: false }));
@@ -202,13 +210,3 @@ const mailer = message => {
 module.exports = mailer;
 ```
 
-> ...ошибка с dns. Если установишь npm пакет dns ляснется всё
-
-варианты:
-
-- https://getsimpleform.com/
-- https://github.com/eahefnawy/lambda-mailer#envelope-lambda-mailer
-- https://www.emailjs.com/
-- https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server
-- https://www.digitalocean.com/community/tutorials/how-to-build-a-lightweight-invoicing-app-with-vue-and-node-jwt-authentication-and-sending-invoices
-- https://habr.com/ru/post/457580/
