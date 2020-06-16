@@ -150,38 +150,32 @@ productCategories () {
 
 3. Сделай билд Vue `npm run build` и потом запусти сервер `node server.js`
 
-## Nodemailer — ошибка с dns
+## Nodemailer
 
-1. Установи необходимые пакеты `npm i body-parser -S`, `npm i dotenv -S` и сам `npm i nodemailer -S`
+1. Установи необходимые пакеты `npm i dotenv -S` и сам `npm i nodemailer -S`
 
-2. Импортируй установленные пакеты в *server.js* `import bodyParser from '@/../node_modules/body-parser'` и `import mailer from '@/../node_modules/nodemailer'`
-
-3. настрой отправку сообщений в *server.js*:
+2. настрой отправку сообщений в *server.js*:
 
 ```js
-Vue.use(bodyParser.urlencoded({ extend: false }));
-// app.use(bodyParser.json());
-Vue.post('/', (req, res) => {
-  // console.log(req.body);
+app.post('/', (req, res) => {
+const output = `
+    <p>You have a new message from vCakeShop:</p>
+    <ul>
+      <li>name: ${req.body.text}</li>
+    </ul>
+  `
   const message = {
     from: 'Имя отправителя <почта@отправителя.com>', // sender address
     to: `почта@получателя.com`, // list of receivers
     subject: 'Тема сообщения', // Subject line
-    html: `<table style="max-width:580px">
-      <td colspan="3">${req.body.text}</td>
-    </tr>
-    </table>`
+    html: output
   }
   mailer(message);
   res.redirect('/');
 })
 ```
 
-4. Оберни форму в тег *form* с атрибутами `method="POST" action="/"` и кнопку вызова метода
-
-5. Cоздай файл *.env* и укажи там логи и пароль от почты: `PASSWORD=пароль EMAIL=логин`
-
-6. создай файл *nodemailer.js* и заполни (пример для Gmail):
+3. создай файл *nodemailer.js* и заполни (пример для Gmail):
 
 ```js
 'use strict'
@@ -210,3 +204,14 @@ const mailer = message => {
 module.exports = mailer;
 ```
 
+4. Импортируй установленные пакеты в *server.js* `const mailer = require('./nodemailer')'`
+
+5. Cоздай файл *.env* и укажи там логи и пароль от почты: `PASSWORD=пароль EMAIL=логин`
+
+6. Оберни форму в тег *form* с атрибутами `method="POST" action="/"` и добавь кнопку отправки формы `<button type="submit">Send order</button>`
+
+7. Каждый инпут формы должен иметь своё название в атрибуте *name* их надо передавать из запроса в html-письме в таком виде `${req.body.text}`
+
+> Если используешь для отправки почты Gmail:
+> разрещи подключение приложений в Gmail https://myaccount.google.com/lesssecureapps
+> разреши не проверять капчей https://accounts.google.com/b/0/displayunlockcaptcha

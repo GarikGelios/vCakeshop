@@ -1,16 +1,20 @@
 <template>
   <section class="v-cart">
     <h2>{{ heading }}</h2>
-    <ul>
-      <v-cart-item
-        v-for="(cake, index) in this.GET_CART"
-        :key="cake.id"
-        :cake_in_cart_data="cake"
-        @delete="deleteFromCart(index)"
-        @decrement="decrement(index)"
-        @increment="increment(index)"
-      />
-    </ul>
+    <form method="POST" action="/">
+      <ul>
+        <v-cart-item
+          v-for="(cake, index) in this.GET_CART"
+          :key="cake.id"
+          :cake_in_cart_data="cake"
+          @delete="deleteFromCart(index)"
+          @decrement="decrement(index)"
+          @increment="increment(index)"
+        />
+      </ul>
+      <input type="text" name="text">
+       <button type="submit">Send order</button>
+    </form>
   </section>
 </template>
 
