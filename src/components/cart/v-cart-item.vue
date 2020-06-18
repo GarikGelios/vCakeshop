@@ -1,6 +1,7 @@
 <template>
   <li class="v-cart-item">
     <picture>
+      {{ item_index }}
       <img
         :src="
           'https://drive.google.com/uc?export=view&id=' + cake_in_cart_data.img
@@ -10,6 +11,7 @@
       />
     </picture>
     <h3>{{ cake_in_cart_data.title }}</h3>
+    <input type="hidden" :name="'title_' + item_index" v-model="cake_in_cart_data.title">
     <div class="v-cart-item__quantity">
       <div class="v-cart-item__quantity_controls">
         <span @click="decrementCake">-</span>
@@ -29,6 +31,12 @@ export default {
       type: Object,
       default () {
         return []
+      }
+    },
+    item_index: {
+      type: Number,
+      default () {
+        return 0
       }
     }
   },

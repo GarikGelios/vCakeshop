@@ -7,11 +7,13 @@
           v-for="(cake, index) in this.GET_CART"
           :key="cake.id"
           :cake_in_cart_data="cake"
+          :item_index="index"
           @delete="deleteFromCart(index)"
           @decrement="decrement(index)"
           @increment="increment(index)"
         />
       </ul>
+      <input name="typesOfCakeInCart" type="text" readonly v-model="typesOfCakeInCart">
       <input type="text" name="text">
        <button type="submit">Send order</button>
     </form>
@@ -34,7 +36,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_CART'])
+    ...mapGetters(['GET_CART']),
+    typesOfCakeInCart () {
+      return this.GET_CART.length
+    }
   },
   methods: {
     ...mapActions([

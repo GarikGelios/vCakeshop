@@ -215,3 +215,7 @@ module.exports = mailer;
 > Если используешь для отправки почты Gmail:
 > разрещи подключение приложений в Gmail https://myaccount.google.com/lesssecureapps
 > разреши не проверять капчей https://accounts.google.com/b/0/displayunlockcaptcha
+
+### шаблон письма с переменными из цикла товаров в корзине
+
+1. создай файл *emailTemplate.js*
