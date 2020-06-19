@@ -150,6 +150,8 @@ productCategories () {
 
 3. Сделай билд Vue `npm run build` и потом запусти сервер `node server.js`
 
+4. Установи автоматическое обновление при изменении файлов `npm i nodemon -D` и создай команду в файле *package.json* `"dev" : "nodemon server.js"` — теперь можешь запусскать сервер командой `npm run dev`
+
 ## Nodemailer
 
 1. Установи необходимые пакеты `npm i dotenv -S` и сам `npm i nodemailer -S`
@@ -219,3 +221,6 @@ module.exports = mailer;
 ### шаблон письма с переменными из цикла товаров в корзине
 
 1. создай файл *emailTemplate.js*
+
+
+
