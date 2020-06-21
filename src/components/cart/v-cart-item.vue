@@ -16,6 +16,7 @@
       <div class="v-cart-item__quantity_controls">
         <span @click="decrementCake">-</span>
         {{ cake_in_cart_data.quantity }}
+        <input type="hidden" :name="'quantity_' + item_index" v-model="cake_in_cart_data.quantity">
         <span @click="incrementCake">+</span>
       </div>
     </div>

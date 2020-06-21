@@ -12,23 +12,24 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(path.join(__dirname, '/dist'))) // указали использовать билд файлов VueJS
 
 app.post('/', (req, res) => {
-  const content = () => { // функция для сбора товаров из корзины и сознания письма 
+  const content = () => {
+    // функция для сбора товаров из корзины и сознания письма
     let arrItems = ['<li> Cake1 </li>', '<li> Cake2 </li>']
-// вот это неработает, при первом прохоже Cannot read property 'title_0' of undefined
-    for ( let i = 0; req.body.typesOfCakeInCart; i++) {
-      arrItems.push('<li>' + req.body.this["title_" + i] + '</li>')
+    // вот это неработает, при первом прохоже Cannot read property 'title_0' of undefined
+    for ( let i = 0; i < req.body.typesOfCakeInCart; i++) {
+      arrItems.push('<li>' + req.body["title_" + i] + '</li>')
     }
-// 
+    //
     let listItems = arrItems.join('') // склеиваем массив в одну строку
 
     let emailTemplate = `
 <p>You have a new message from vCakeShop:</p>
 <p>HELLO</p>
-${ req.body.typesOfCakeInCart }
+${req.body.typesOfCakeInCart}
 <ul>
-${ listItems }
+${listItems}
 </ul>
-<p> ${ req.body.text } </p>
+<p> ${req.body.text} </p>
 `
     return emailTemplate
   }
