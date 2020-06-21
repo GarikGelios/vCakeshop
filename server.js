@@ -3,6 +3,8 @@ const express = require(`express`) // фреймворк веб-приложен
 const path = require('path') // модуль Node js path используется для обработки и преобразования путей к файлам
 const mailer = require('./nodemailer')
 
+const content = require('./nodemailer/email')
+
 const app = express() // присвоили express к переменной app
 
 app.set('port', 3000) // присвоили к переменной port значение порта 3000
@@ -12,33 +14,12 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(path.join(__dirname, '/dist'))) // указали использовать билд файлов VueJS
 
 app.post('/', (req, res) => {
-  const content = () => {
-    // функция для сбора товаров из корзины и сознания письма
-    let arrItems = ['<li> Cake1 </li>', '<li> Cake2 </li>']
-    // вот это неработает, при первом прохоже Cannot read property 'title_0' of undefined
-    for ( let i = 0; i < req.body.typesOfCakeInCart; i++) {
-      arrItems.push('<li>' + req.body["title_" + i] + '</li>')
-    }
-    //
-    let listItems = arrItems.join('') // склеиваем массив в одну строку
-
-    let emailTemplate = `
-<p>You have a new message from vCakeShop:</p>
-<p>HELLO</p>
-${req.body.typesOfCakeInCart}
-<ul>
-${listItems}
-</ul>
-<p> ${req.body.text} </p>
-`
-    return emailTemplate
-  }
-
+  
   const message = {
     from: 'vCakeShop <transfercompanion@gmail.com>', // sender address
     to: `garikgelios@gmail.com`, // list of receivers
     subject: 'Тема сообщения', // Subject line
-    html: content()
+    html: content(req.body)
   }
   mailer(message)
   res.redirect('/')
