@@ -3,6 +3,7 @@
     <h2>{{ heading }}</h2>
     <form method="POST" action="/">
       <ul>
+        <input type="hidden" name="typesOfCakeInCart" v-model="typesOfCakeInCart">
         <v-cart-item
           v-for="(cake, index) in this.GET_CART"
           :key="cake.id"

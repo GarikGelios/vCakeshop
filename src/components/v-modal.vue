@@ -3,6 +3,7 @@
     <form method="POST" action="/" class="v-modal">
       <div class="v-modal__header">
         <h3>{{ modalTitle }} — {{ productPrice }} €</h3>
+        <input type="hidden" name="typesOfCakeInCart" value="1">
         <input type="hidden" name="title_0" v-model="modalTitle" />
         <span @click="closeModalButton">X</span>
       </div>
