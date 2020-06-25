@@ -1,5 +1,5 @@
 <template>
-  <nav class="v-catalog-menu">
+  <nav class="v-catalog-menu" id="v-catalog-menu">
     <ul class="v-catalog-menu_list">
       <!-- default firts cheked for all categores -->
       <li>
@@ -8,11 +8,11 @@
           id="v-catalog-menu_list_all"
           name="v-catalog-menu_list"
           value="all"
-          checked
           v-model="li_checked"
+          class="d-none"
         />
         <!-- listen click on option for send it to parent -->
-        <label for="v-catalog-menu_list_all" @click="selectOption('all')"
+        <label for="v-catalog-menu_list_all" class="btn btn-white" :class="{ checked: li_checked=='all' }" @click="selectOption('all')"
           >All</label
         >
       </li>
@@ -24,9 +24,12 @@
           name="v-catalog-menu_list"
           :value="category"
           v-model="li_checked"
+          class="d-none"
         />
         <label
           :for="'v-catalog-menu_list_all' + index"
+          class="btn btn-white"
+          :class="{ checked: li_checked==category }"
           @click="selectOption(category)"
           >{{ category }}</label
         >
@@ -67,8 +70,13 @@ export default {
     padding: $padding;
     justify-content: center;
     li {
-      padding: $padding;
-      cursor: pointer;
+      margin: $margin;
+      label {
+        cursor: pointer;
+      }
+      .checked {
+        font-weight: bold;
+      }
     }
   }
 }

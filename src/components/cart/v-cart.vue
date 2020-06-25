@@ -13,9 +13,18 @@
           @increment="increment(index)"
         />
       </ul>
-      <input name="typesOfCakeInCart" type="text" readonly v-model="typesOfCakeInCart">
-      <input type="text" name="text">
-       <button type="submit">Send order</button>
+      <div>
+        <div class="v-cart_personal-info">
+          <input type="text" placeholder="Name" name="name" required />
+          <input type="text" placeholder="Phone number" name="phone" required />
+        </div>
+        <input
+          type="text"
+          placeholder="Add a comment for your order"
+          name="comment"
+        />
+      </div>
+      <button type="submit" class="btn">Make order</button>
     </form>
   </section>
 </template>
@@ -68,6 +77,14 @@ export default {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+  &_personal-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  input {
+    @include input;
   }
 }
 </style>

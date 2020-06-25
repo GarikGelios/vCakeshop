@@ -9,7 +9,7 @@
         Freshly baked home-made cakes, made only from natural products,
         according to the highest individual order, made with love.
       </p>
-      <button class="v-firstscreen-button btn">Show menu</button>
+      <a class="v-firstscreen-button btn" href="#v-catalog-menu" >Show catalog</a>
     </div>
     <picture>
       <img
@@ -45,6 +45,9 @@ export default {
     }
     p {
       text-align: left;
+    }
+    a {
+      text-decoration: none;
     }
   }
 }

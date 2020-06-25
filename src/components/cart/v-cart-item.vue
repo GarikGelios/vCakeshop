@@ -1,7 +1,6 @@
 <template>
   <li class="v-cart-item">
     <picture>
-      {{ item_index }}
       <img
         :src="
           'https://drive.google.com/uc?export=view&id=' + cake_in_cart_data.img
@@ -10,7 +9,7 @@
         height="100"
       />
     </picture>
-    <h3>{{ cake_in_cart_data.title }}</h3>
+    <h3>{{ cake_in_cart_data.category }} "{{ cake_in_cart_data.title }}"</h3>
     <input type="hidden" :name="'title_' + item_index" v-model="cake_in_cart_data.title">
     <div class="v-cart-item__quantity">
       <div class="v-cart-item__quantity_controls">

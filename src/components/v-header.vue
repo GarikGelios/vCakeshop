@@ -12,11 +12,13 @@
     </router-link>
     <div class="v-header_contacts">
       <div class="v-header_contacts_phone">
-        <a :href="'tel:' + phone">{{ phone }}</a>
-        <p>Call to us</p>
+        <a :href="'tel:' + phone"
+          >{{ phone }}
+          <p>Call to us</p></a
+        >
       </div>
       <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
-        Make order: {{ productsInCart }} cake in cart
+        Cart: {{ productsInCart }} cake
       </router-link>
     </div>
   </header>
@@ -57,14 +59,17 @@ export default {
   padding: $padding;
   &_contacts {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     &_phone {
       margin: 0 10px;
       a {
         font-weight: bold;
         color: #2c3e50;
-      }
-      p {
+        p {
         margin: 0;
+        font-weight:initial;
+      }
       }
     }
   }

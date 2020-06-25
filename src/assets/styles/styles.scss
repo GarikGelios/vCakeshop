@@ -1,3 +1,7 @@
 @import './variables.scss';
 @import './mixins.scss';
 @import './components/btn.scss';
+
+.d-none {
+    display: none;
+}

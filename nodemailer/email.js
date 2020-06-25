@@ -8,11 +8,12 @@ module.exports = function content(cart){ // функция для сбора т�
   let emailTemplate = `
 <p>You have a new message from vCakeShop:</p>
 <p>HELLO</p>
-${cart.typesOfCakeInCart}
+${cart.typesOfCakeInCart} type of cake
 <ul>
 ${listItems}
 </ul>
-<p> ${cart.text} </p>
+<p> ${cart.name} : ${cart.phone} </p>
+<p> ${cart.comment} </p>
 `
   return emailTemplate
 }
