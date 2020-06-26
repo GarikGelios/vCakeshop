@@ -83,6 +83,9 @@ export default {
 
 <style lang="scss">
 .v-catalog-item {
+  h3 {
+    font-family: 'Concert One', cursive;
+  }
   display: flex;
   justify-content: space-between;
   flex-direction: column;

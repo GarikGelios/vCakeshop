@@ -1,19 +1,22 @@
 <template>
   <main class="v-home">
     <v-first-screen />
-    <v-catalog msg="Catalog" />
+    <vBenefits />
+    <v-catalog msg="Choose sweets to your taste" />
   </main>
 </template>
 
 <script>
-import vCatalog from '@/components/v-catalog'
 import vFirstScreen from '@/components/v-first-screen'
+import vBenefits from '@/components/v-benefits'
+import vCatalog from '@/components/v-catalog'
 
 export default {
   name: 'Home',
   components: {
     vCatalog,
-    vFirstScreen
+    vFirstScreen,
+    vBenefits
   }
 }
 </script>

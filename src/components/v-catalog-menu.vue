@@ -2,7 +2,7 @@
   <nav class="v-catalog-menu" id="v-catalog-menu">
     <ul class="v-catalog-menu_list">
       <!-- default firts cheked for all categores -->
-      <li>
+      <li :class="{ w100: GET_WINDOW_TYPE=='Extra small' }">
         <input
           type="radio"
           id="v-catalog-menu_list_all"
@@ -17,7 +17,7 @@
         >
       </li>
       <!-- categores from array -->
-      <li v-for="(category, index) in this.categories" :key="category">
+      <li v-for="(category, index) in this.categories" :key="category" :class="{ w100: GET_WINDOW_TYPE=='Extra small' }">
         <input
           type="radio"
           :id="'v-catalog-menu_list_all' + index"
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'v-catalog-menu',
   props: {
@@ -54,6 +56,9 @@ export default {
       li_checked: 'all'
     }
   },
+  computed: {
+    ...mapGetters(['GET_WINDOW_TYPE']) // обратился к геттеру c размером экрана
+  },
   methods: {
     selectOption (valueCategory) {
       this.$emit('select', valueCategory)
@@ -66,6 +71,7 @@ export default {
 .v-catalog-menu {
   &_list {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     padding: $padding;
     justify-content: center;

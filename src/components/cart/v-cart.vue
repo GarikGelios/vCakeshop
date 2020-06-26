@@ -1,9 +1,21 @@
 <template>
   <section class="v-cart">
-    <h2>{{ heading }}</h2>
-    <form method="POST" action="/">
+    <h2>{{ heading }} <span v-if="typesOfCakeInCart==0">is empty</span> </h2>
+    <picture class="v-cart_empty" v-if="typesOfCakeInCart==0">
+      <source
+        srcset="@/assets/empty-cart.svg"
+        media="(min-width: 600px)"
+        type="image/svg+xml"
+      />
+      <img src="@/assets/empty-cart.png" alt="logo" />
+    </picture>
+    <form method="POST" action="/" v-if="typesOfCakeInCart">
       <ul>
-        <input type="hidden" name="typesOfCakeInCart" v-model="typesOfCakeInCart">
+        <input
+          type="hidden"
+          name="typesOfCakeInCart"
+          v-model="typesOfCakeInCart"
+        />
         <v-cart-item
           v-for="(cake, index) in this.GET_CART"
           :key="cake.id"
@@ -14,16 +26,16 @@
           @increment="increment(index)"
         />
       </ul>
-      <div>
-        <div class="v-cart_personal-info">
+      <div class="v-cart_info">
+        <div class="v-cart_info-personal">
           <input type="text" placeholder="Name" name="name" required />
           <input type="text" placeholder="Phone number" name="phone" required />
         </div>
-        <input
+        <textarea
           type="text"
           placeholder="Add a comment for your order"
           name="comment"
-        />
+        ></textarea>
       </div>
       <button type="submit" class="btn">Make order</button>
     </form>
@@ -74,18 +86,29 @@ export default {
 .v-cart {
   max-width: $screenwidth * 2;
   margin: auto;
+  h2 {
+    font-family: 'Concert One', cursive;
+  }
+  &_empty {
+    img {
+    width: 100%;
+    max-height: 250px;
+  }
+  }
   ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 0 $padding;
   }
-  &_personal-info {
+  &_info {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  input {
-    @include input;
+    flex-direction: column;
+    max-width: 462px;
+    margin: auto;
+    input,
+    textarea {
+      @include input;
+    }
   }
 }
 </style>

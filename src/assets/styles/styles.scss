@@ -2,6 +2,20 @@
 @import './mixins.scss';
 @import './components/btn.scss';
 
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+html {
+    font-family: sans-serif;
+}
+
 .d-none {
     display: none;
+}
+
+.lead {
+    font-weight: 800;
+}
+
+.w100 {
+    width: 100%;
 }

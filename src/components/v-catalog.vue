@@ -105,6 +105,9 @@ export default {
 .v-catalog {
   max-width: $screenwidth * 2;
   margin: auto;
+  h2 {
+    font-family: 'Concert One', cursive;
+  }
   &_items {
     display: flex;
     flex-wrap: wrap;

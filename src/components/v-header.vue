@@ -1,25 +1,42 @@
 <template>
   <header class="v-header">
-    <router-link to="/">
-      <picture>
-        <source
-          srcset="@/assets/logo/logo.svg"
-          media="(min-width: 600px)"
-          type="image/svg+xml"
-        />
-        <img src="@/assets/logo/logo.png" alt="logo" width="100" height="100" />
-      </picture>
-    </router-link>
-    <div class="v-header_contacts">
-      <div class="v-header_contacts_phone">
-        <a :href="'tel:' + phone"
-          >{{ phone }}
-          <p>Call to us</p></a
-        >
-      </div>
-      <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
-        Cart: {{ productsInCart }} cake
+    <div class="v-header_wraper">
+      <router-link to="/">
+        <picture>
+          <source
+            srcset="@/assets/logo/logo.svg"
+            media="(min-width: 600px)"
+            type="image/svg+xml"
+          />
+          <img
+            src="@/assets/logo/logo.png"
+            alt="logo"
+            width="100"
+            height="100"
+          />
+        </picture>
       </router-link>
+      <div class="v-header_contacts">
+        <div class="v-header_contacts_phone">
+          <a :href="'tel:' + phone">
+            <picture>
+              <source
+                srcset="@/assets/phone.svg"
+                media="(min-width: 600px)"
+                type="image/svg+xml"
+              />
+              <img src="@/assets/phone.png" alt="logo" width="40" height="40" />
+            </picture>
+            <div>
+              {{ phone }}
+              <p>Call to us</p>
+            </div></a
+          >
+        </div>
+        <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
+          Cart: {{ productsInCart }} cake
+        </router-link>
+      </div>
     </div>
   </header>
 </template>
@@ -43,7 +60,7 @@ export default {
   },
   data () {
     return {
-      phone: '+0123456789'
+      phone: '(+357) 97669451'
     }
   }
 }
@@ -51,34 +68,44 @@ export default {
 
 <style lang="scss">
 .v-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: $screenwidth * 2;
-  margin: auto;
-  padding: $padding;
+  &_wraper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: $screenwidth * 2;
+    padding: $padding;
+    margin: auto;
+  }
   &_contacts {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     &_phone {
-      margin: 0 10px;
+      margin: 0 $margin * 2;
       a {
         font-weight: bold;
         color: #2c3e50;
+        display: flex;
+        align-items: center;
+        picture {
+          margin: 0 $margin;
+        }
         p {
-        margin: 0;
-        font-weight:initial;
-      }
+          margin: 0;
+          font-weight: initial;
+        }
       }
     }
   }
 
   a {
     text-decoration: none;
+    border-width: 2px;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #a63e51;
+      font-weight: 700;
     }
   }
 }
