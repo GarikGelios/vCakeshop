@@ -3,11 +3,6 @@
     <div class="v-header_wraper">
       <router-link to="/">
         <picture>
-          <source
-            srcset="@/assets/logo/logo.svg"
-            media="(min-width: 600px)"
-            type="image/svg+xml"
-          />
           <img
             src="@/assets/logo/logo.png"
             alt="logo"
