@@ -18,8 +18,11 @@
       <p>
         <strong>{{ product_data.price }} €</strong>
       </p>
-      <button class="btn btn-right" @click="showModal">Buy now</button>
+      <button v-if="GET_CART.length==0" class="btn btn-right" @click="showModal">Buy now</button>
       <!-- вызываю метод добавления в корзину -->
+      <router-link v-if="GET_CART.length" to="/cart" class="btn btn-right decoration-none">
+        Buy now
+      </router-link>
       <button @click="addToCart" class="btn btn-empty btn-left">
         Add to cart
       </button>
@@ -48,6 +51,7 @@
 
 <script>
 import vModal from './v-modal'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'v-catalog-item',
@@ -66,6 +70,9 @@ export default {
     return {
       isModalVisible: false // по-умолчанию модальное окно скрыто
     }
+  },
+  computed: {
+    ...mapGetters(['GET_CART'])
   },
   methods: {
     addToCart () {
@@ -91,5 +98,8 @@ export default {
   flex-direction: column;
   flex-basis: $screenwidth / 2;
   padding: $padding * 2;
+  .btn {
+    font-size: 13px;
+  }
 }
 </style>
