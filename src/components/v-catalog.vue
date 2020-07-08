@@ -12,6 +12,7 @@
     </div>
     <!-- show preloader if data is not downloaded -->
     <div v-else>waite producte ...</div>
+    <v-notification :messages="messages" />
   </section>
 </template>
 
@@ -19,12 +20,14 @@
 import { mapGetters, mapActions } from 'vuex'
 import vCatalogMenu from '@/components/v-catalog-menu'
 import vCatalogItem from '@/components/v-catalog-item'
+import vNotification from '@/components/notifications/v-notification'
 
 export default {
   name: 'v-catalog',
   components: {
     vCatalogMenu,
-    vCatalogItem
+    vCatalogItem,
+    vNotification
   },
   props: {
     msg: {
@@ -34,7 +37,9 @@ export default {
   },
   data () {
     return {
-      sortedProducts: []
+      sortedProducts: [],
+      // messages: [{ name: 'notification name', id: Date.now().toLocaleString() }]
+      messages: []
     }
   },
   computed: {
@@ -54,7 +59,13 @@ export default {
       'ACT_ADD_TO_CART' // для передачи в store продукта, в корзину
     ]),
     addToCart (data) {
-      this.ACT_ADD_TO_CART(data)
+      this.ACT_ADD_TO_CART(data).then(() => {
+        const timeStamp = Date.now().toLocaleString()
+        this.messages.unshift({ // или push, смотря куда собираешся добавлять: в конец или в начало
+          name: data.category + ' added to cart',
+          id: timeStamp
+        })
+      })
     },
     selectCategory (valueCategory) {
       this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS] // перед проверкой возобновляем массив

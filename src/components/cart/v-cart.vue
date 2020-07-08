@@ -9,6 +9,7 @@
       />
       <img src="@/assets/empty-cart.png" alt="logo" />
     </picture>
+    <router-link to="/" class="btn decoration-none">⇐ Back to catalog</router-link>
     <form method="POST" action="/" v-if="typesOfCakeInCart">
       <ul>
         <input

@@ -235,3 +235,52 @@ module.exports = mailer;
 3. В модальном окне добавь тэги ``<slot></slot>`` чтобы передавать в это место из родителя элементы контента с сохранением html-структуры
 
 4. Добавь в тэг затемнённой области модального окна атрибут, чтобы можно было обратиться конкретно к ней ``ref="modal_wrapper"``. Как только документ срендерился добавь слушать клики по этой области ``if (item.target === vm.$refs['modal_wrapper']){ vm.closeModal() }``
+
+## Notification
+
+1. Создай папку с файлом *notifications/notification.vue* и опиши в файле html-раметку уведомления
+
+2. Создай цикл для перебора контента нотификаций содержимого в блоке ``v-for="message in messages"``, где содержимое *messages* приходит в **props** от родительского элемента
+
+3. Укажи уникальный ключ, как ``:key="message.id"`` который в обекте будет уникально датой создания ``id: Date.now().toLocaleString()``
+
+4. Размести компонент нотификации в родительском компоненте *v-catalog* и передай в него через props элемент массива *messages* ``{ name: 'notification name', id: Date.now().toLocaleString() }``
+
+5. Добавь кнопки так же через props с условием, что если ничего не передаётся то и кнопку отображать не следует
+
+6. Добавь к событию добавления товара в корзину последующее событие добавления нотификации в массив
+
+```js
+.then(() => {
+  const timeStamp = Date.now().toLocaleString()
+  this.messages.push({
+    name: data.category + ' added to cart',
+    id: timeStamp
+  })
+})
+```
+
+7. Оберни нотификации в их компоненте в тег *transition-group* и опиши стили с красивыми переходами
+
+8. Добавь метод для скрытия нотификаций и вызывай его при изменении массива и при первом появлении компонента
+
+```js
+methods: {
+  hideNotification () {
+    const vm = this
+    if (this.messages.length) {
+      setTimeout(function () {
+        vm.messages.splice(vm.messages.length - 1, 1)
+      }, 3000)
+    }
+  }
+},
+watch: {
+  messages () {
+    this.hideNotification()
+  }
+},
+mounted () {
+  this.hideNotification()
+}
+```
