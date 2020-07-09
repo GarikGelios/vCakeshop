@@ -18,11 +18,21 @@
       <p>
         <strong>{{ product_data.price }} €</strong>
       </p>
-      <button v-if="GET_CART.length==0" class="btn btn-right" @click="showModal">Buy now</button>
-      <!-- вызываю метод добавления в корзину -->
-      <router-link v-if="GET_CART.length" to="/cart" class="btn btn-right decoration-none">
+      <button
+        v-if="GET_CART.length == 0"
+        class="btn btn-right"
+        @click="showModal"
+      >
         Buy now
-      </router-link>
+      </button>
+      <!-- вызываю метод добавления в корзину -->
+      <button
+        v-if="GET_CART.length"
+        @click="addToCartAndLink"
+        class="btn btn-right decoration-none"
+      >
+        Buy now
+      </button>
       <button @click="addToCart" class="btn btn-empty btn-left">
         Add to cart
       </button>
@@ -77,6 +87,10 @@ export default {
   methods: {
     addToCart () {
       this.$emit('addToCart', this.product_data) // отправляю событие наверх, к родительскому компоненту со всем содержимым этого продукта
+    },
+    addToCartAndLink () {
+      this.addToCart()
+      this.$router.push('/cart')
     },
     showModal () {
       this.isModalVisible = !this.isModalVisible // при вызове метода меняется состояние скрытности модального окна
