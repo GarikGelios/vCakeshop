@@ -1,8 +1,6 @@
 'use strict'
 const nodemailer = require('nodemailer')
 
-
-
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
   service: 'Gmail', // настройки уже описаны в \node_modules\nodemailer\lib\well-known\services.json

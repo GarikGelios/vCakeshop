@@ -20,6 +20,14 @@ html {
     width: 100%;
 }
 
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
 .decoration-none {
     text-decoration: none;
 }

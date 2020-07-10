@@ -14,11 +14,24 @@
       <h3>{{ cake_in_cart_data.category }} "{{ cake_in_cart_data.title }}"</h3>
       <input
         type="hidden"
+        :name="'category_' + item_index"
+        v-model="cake_in_cart_data.category"
+      />
+      <input
+        type="hidden"
         :name="'title_' + item_index"
         v-model="cake_in_cart_data.title"
       />
     </div>
-    <div class="v-cart-item_qnt-del">
+    <div class="v-cart-item_qnt-del" :class="{ 'justify-content-between': GET_WINDOW_TYPE=='Extra small', 'justify-content-end': GET_WINDOW_TYPE!='Extra small' }">
+      <div class="v-cart-item__price">
+        <strong>{{ cake_in_cart_data.price }} € / {{ cake_in_cart_data.price * cake_in_cart_data.quantity }} €</strong>
+        <input
+            type="hidden"
+            :name="'price_' + item_index"
+            v-model="cake_in_cart_data.price"
+          />
+      </div>
       <div class="v-cart-item__quantity">
         <div class="v-cart-item__quantity_controls">
           <span @click="decrementCake">-</span>
@@ -37,6 +50,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'v-cart-item',
   props: {
@@ -52,6 +67,9 @@ export default {
         return 0
       }
     }
+  },
+  computed: {
+    ...mapGetters(['GET_WINDOW_TYPE']) // обратился к геттеру c размером экрана
   },
   methods: {
     decrementCake (index) {
@@ -86,7 +104,6 @@ export default {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    justify-content: flex-end;
   }
   &__quantity {
     margin: 0 $margin * 3;
