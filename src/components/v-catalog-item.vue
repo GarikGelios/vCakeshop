@@ -88,7 +88,7 @@ export default {
     addToCart () {
       this.$emit('addToCart', this.product_data) // отправляю событие наверх, к родительскому компоненту со всем содержимым этого продукта
     },
-    addToCartAndLink () {
+    addToCartAndLink () { // добавляет товар в корзину и перелинковывает в саму корзину
       this.addToCart()
       this.$router.push('/cart')
     },

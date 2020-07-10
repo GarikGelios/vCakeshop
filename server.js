@@ -1,4 +1,6 @@
 'use strict'
+require('dotenv').config({ path: __dirname + '/env' }) // подключаем конфигурацию dotenv, чтобы там писать логины и пароли где их не увидят никакие злодеи
+
 const express = require(`express`) // фреймворк веб-приложений Node.js
 const path = require('path') // модуль Node js path используется для обработки и преобразования путей к файлам
 const mailer = require('./nodemailer')
@@ -14,7 +16,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(path.join(__dirname, '/dist'))) // указали использовать билд файлов VueJS
 
 app.post('/', (req, res) => {
-  
   const message = {
     from: 'vCakeShop <transfercompanion@gmail.com>', // sender address
     to: `garikgelios@gmail.com`, // list of receivers

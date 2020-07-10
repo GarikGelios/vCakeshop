@@ -46,6 +46,9 @@ export default {
   methods: {
     closeModalButton () {
       this.$emit('closeModalButton')
+    },
+    makeNotification () {
+      this.$emit('makeNotification')
     }
   },
   mounted () {

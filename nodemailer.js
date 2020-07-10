@@ -1,24 +1,32 @@
 'use strict'
-require('dotenv').config(); // подключаем конфигурацию dotenv, чтобы там писать логины и пароли где их не увидят никакие злодеи
+const nodemailer = require('nodemailer')
 
-const nodemailer = require('nodemailer');
+
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // Сервер исходящей почты (SMTP) из настроек Gmail
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: process.env.EMAIL,   // тянется из .env
-        pass: process.env.PASSWORD // тянется из .env
-    }
-});
+  service: 'Gmail', // настройки уже описаны в \node_modules\nodemailer\lib\well-known\services.json
+  auth: {
+    type: 'OAuth2',
+    user: process.env.VUE_APP_EMAIL, // тянется из .env
+    refreshToken: process.env.VUE_APP_EMAIL_REFRESH_TOKEN,
+    clientId: process.env.VUE_APP_EMAIL_CLIENT_ID,
+    clientSecret: process.env.VUE_APP_EMAIL_CLIENT_SECRET,
+    accessUrl: 'https://oauth2.googleapis.com/token'
+  }
+})
 
 const mailer = message => {
-    transporter.sendMail(message, (err, info) =>{
-        if(err) return console.log(err);
-        console.log(`Email sent: `, info);
+  transporter.sendMail(message, (err, info) => {
+    if (err) return console.log(err)
+    console.log(`Email sent: `, info)
+    transporter.on('token', token => {
+      console.log('A new access token was generated')
+      console.log('User: %s', token.user)
+      console.log('Access Token: %s', token.accessToken)
+      console.log('Expires: %s', new Date(token.expires))
     })
-};
+  })
+}
 
-module.exports = mailer;
+module.exports = mailer

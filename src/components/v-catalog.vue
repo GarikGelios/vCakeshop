@@ -46,7 +46,7 @@ export default {
     ...mapGetters(['GET_SPREADSHEETS', 'GET_PROCESSED_SPREADSHEETS']), // обратился к геттеру в store который хранит данные из Google Таблицы
     productCategories () {
       return [
-        ...new Set(
+        ...new Set( // собираю названия категорий и оставляю каждое в единственном виде
           this.GET_PROCESSED_SPREADSHEETS.map(({ category }) => category)
         )
       ]
@@ -60,7 +60,7 @@ export default {
     ]),
     addToCart (data) {
       this.ACT_ADD_TO_CART(data).then(() => {
-        const timeStamp = Date.now().toLocaleString()
+        const timeStamp = Date.now().toLocaleString() // уникальный id это время создания с точностью до милисекунды
         this.messages.unshift({ // или push, смотря куда собираешся добавлять: в конец или в начало
           name: data.category + ' added to cart',
           id: timeStamp
