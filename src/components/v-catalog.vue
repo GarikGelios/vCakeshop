@@ -93,7 +93,7 @@ export default {
           title: obj.gsx$title.$t,
           description: obj.gsx$description.$t,
           price: obj.gsx$price.$t,
-          img: obj.gsx$imglink.$t
+          img: obj.gsx$imglink.$t.split('/view?')[0].split('d/')[1] // обрезаем лишнее в картинке
         }
       })
       this.ACT_PROCESSED_SPREADSHEETS_TO_STORE(arr)
