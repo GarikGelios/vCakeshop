@@ -2,9 +2,12 @@
   <div class="modal_wrapper" ref="modal_wrapper">
     <form method="POST" action="/" class="v-modal">
       <div class="v-modal__header">
-        <h3>{{ modalTitle }} — {{ productPrice }} €</h3>
+        <h3>{{ modalCategory }} "{{ modalTitle }}" — {{ productPrice }} €</h3>
         <input type="hidden" name="typesOfCakeInCart" value="1">
+        <input type="hidden" name="category_0" v-model="modalCategory" />
         <input type="hidden" name="title_0" v-model="modalTitle" />
+        <input type="hidden" name="price_0" v-model="productPrice" />
+        <input type="hidden" name="quantity_0" value="1" />
         <span class="v-modal__header_close" @click="closeModalButton">X</span>
       </div>
       <div class="v-modal__content">
@@ -34,9 +37,13 @@ export default {
       type: String,
       default: 'OK'
     },
+    modalCategory: {
+      type: String,
+      default: 'Category'
+    },
     modalTitle: {
       type: String,
-      default: 'Popup name'
+      default: 'Title'
     },
     productPrice: {
       type: String,

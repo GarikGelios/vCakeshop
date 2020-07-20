@@ -41,9 +41,8 @@
       v-if="isModalVisible"
       @closeModalButton="closeModal"
       rightBtntitle="By now"
-      :modalTitle="
-        product_data.category + ' &quot;' + product_data.title + '&quot;'
-      "
+      :modalCategory="product_data.category"
+      :modalTitle="product_data.title"
       :productPrice="product_data.price"
     >
       <picture>
