@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Cart from '../views/Cart.vue'
 
 Vue.use(VueRouter)
 
@@ -9,8 +10,45 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { // описание meta-тегов для каждой страницы
+    meta: {
+      // описание meta-тегов для каждой страницы
       title: 'Sweet Home - HOMEMADE BAKING IN CYPRUS',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'The home page of our example app.'
+        },
+        {
+          name: 'keywords',
+          content:
+            'Shortcrust pastry, Flaky pastry, Puff pastry, Meringue, Muos'
+        },
+        {
+          property: 'og:title',
+          content: 'HOMEMADE BAKING IN CYPRUS'
+        },
+        {
+          property: 'og:description',
+          content: 'The home page of our example app.'
+        },
+        {
+          property: 'og:type',
+          content: 'text/javascript'
+        },
+        {
+          property: 'og:image',
+          content: '/img/logo.png'
+        }
+      ]
+    }
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
+    meta: {
+      // описание meta-тегов для каждой страницы
+      title: 'Cart',
       metaTags: [
         {
           name: 'description',
@@ -48,6 +86,15 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/thank',
+    name: 'Thank',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "thank" */ '../views/Thank.vue')
   },
   {
     path: '/cart',

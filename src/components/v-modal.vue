@@ -1,9 +1,9 @@
 <template>
   <div class="modal_wrapper" ref="modal_wrapper">
-    <form method="POST" action="/" class="v-modal">
+    <form method="POST" @submit.prevent="submit" class="v-modal">
       <div class="v-modal__header">
         <h3>{{ modalCategory }} "{{ modalTitle }}" — {{ productPrice }} €</h3>
-        <input type="hidden" name="typesOfCakeInCart" value="1">
+        <input type="hidden" name="typesOfCakeInCart" value="1" />
         <input type="hidden" name="category_0" v-model="modalCategory" />
         <input type="hidden" name="title_0" v-model="modalTitle" />
         <input type="hidden" name="price_0" v-model="productPrice" />
@@ -20,16 +20,20 @@
           placeholder="Enter your phone number"
           name="phone"
           required
+          v-model="fields.phone"
         />
-        <input
-          type="hidden" name="comment" value="Quick order form" />
-        <button type="submit" class="btn">{{ rightBtntitle }}</button>
+        <input type="hidden" name="comment" value="Quick order form" />
+        <button type="submit" class="btn">
+          {{ rightBtntitle }}
+        </button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'v-modal',
   props: {
@@ -50,12 +54,36 @@ export default {
       default: '0'
     }
   },
+  data () {
+    return {
+      fields: {
+        typesOfCakeInCart: 1,
+        category_0: this.modalCategory,
+        title_0: this.modalTitle,
+        price_0: this.productPrice,
+        quantity_0: 1,
+        name: 'Customer',
+        phone: '',
+        comment: 'Quick order form'
+      }
+    }
+  },
   methods: {
     closeModalButton () {
       this.$emit('closeModalButton')
     },
     makeNotification () {
       this.$emit('makeNotification')
+    },
+    submit () {
+      axios
+        .post('/', this.fields)
+        .then(function (response) {
+          if (response.status === 200) {
+            this.$router.push('thank')
+          }
+        })
+        .catch(error => console.log(error))
     }
   },
   mounted () {
@@ -87,14 +115,14 @@ export default {
   top: 50px;
   width: 400px;
   background: white;
-  border-radius: $radius*2;
+  border-radius: $radius * 2;
   z-index: 10;
   &__header,
   &__footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    &_close{
+    &_close {
       cursor: pointer;
     }
   }

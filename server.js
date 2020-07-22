@@ -23,7 +23,6 @@ app.post('/', (req, res) => {
     html: content(req.body)
   }
   mailer(message)
-  res.redirect('/')
 })
 
 app.listen(app.get('port'), () => {
