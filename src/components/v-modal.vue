@@ -1,6 +1,6 @@
 <template>
   <div class="modal_wrapper" ref="modal_wrapper">
-    <form method="POST" @submit.prevent="submit" class="v-modal">
+    <form @submit.prevent="submit" class="v-modal">
       <div class="v-modal__header">
         <h3>{{ modalCategory }} "{{ modalTitle }}" — {{ productPrice }} €</h3>
         <input type="hidden" name="typesOfCakeInCart" value="1" />
@@ -76,11 +76,12 @@ export default {
       this.$emit('makeNotification')
     },
     submit () {
+      const vm = this
       axios
         .post('/', this.fields)
         .then(function (response) {
           if (response.status === 200) {
-            this.$router.push('thank')
+            vm.$router.push('thank')
           }
         })
         .catch(error => console.log(error))

@@ -1,7 +1,7 @@
 <template>
   <section class="v-cart">
-    <h2>{{ heading }} <span v-if="typesOfCakeInCart==0">is empty</span> </h2>
-    <picture class="v-cart_empty" v-if="typesOfCakeInCart==0">
+    <h2>{{ heading }} <span v-if="typesOfCakeInCart == 0">is empty</span></h2>
+    <picture class="v-cart_empty" v-if="typesOfCakeInCart == 0">
       <source
         srcset="@/assets/empty-cart.svg"
         media="(min-width: 600px)"
@@ -9,8 +9,10 @@
       />
       <img src="@/assets/empty-cart.png" alt="logo" />
     </picture>
-    <router-link to="/" class="btn decoration-none">⇐ Back to catalog</router-link>
-    <form method="POST" action="/" v-if="typesOfCakeInCart">
+    <router-link to="/" class="btn decoration-none"
+      >⇐ Back to catalog</router-link
+    >
+    <form @submit.prevent="submit" v-if="typesOfCakeInCart">
       <ul>
         <input
           type="hidden"
@@ -29,13 +31,26 @@
       </ul>
       <div class="v-cart_info">
         <div class="v-cart_info-personal">
-          <input type="text" placeholder="Name" name="name" required />
-          <input type="text" placeholder="Phone number" name="phone" required />
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            v-model="name"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Phone number"
+            name="phone"
+            v-model="phone"
+            required
+          />
         </div>
         <textarea
           type="text"
           placeholder="Add a comment for your order"
           name="comment"
+          v-model="comment"
         ></textarea>
       </div>
       <button type="submit" class="btn">Make order</button>
@@ -46,6 +61,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import vCartItem from '@/components/cart/v-cart-item'
+import axios from 'axios'
 
 export default {
   name: 'v-cart',
@@ -58,10 +74,31 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      name: '',
+      phone: '',
+      comment: ''
+    }
+  },
   computed: {
     ...mapGetters(['GET_CART']),
     typesOfCakeInCart () {
       return this.GET_CART.length
+    },
+    dataForm () {
+      const arrItems = {}
+      arrItems.typesOfCakeInCart = this.GET_CART.length
+      for (let i = 0; i < this.GET_CART.length; i++) {
+        arrItems['category_' + i] = this.GET_CART[i].category
+        arrItems['title_' + i] = this.GET_CART[i].title
+        arrItems['price_' + i] = this.GET_CART[i].price
+        arrItems['quantity_' + i] = this.GET_CART[i].quantity
+      }
+      arrItems.name = this.name
+      arrItems.phone = this.phone
+      arrItems.comment = this.comment
+      return arrItems
     }
   },
   methods: {
@@ -78,6 +115,17 @@ export default {
     },
     deleteFromCart (index) {
       this.ACT_DELETE_FROM_CART(index)
+    },
+    submit () {
+      const vm = this
+      axios
+        .post('/', this.dataForm)
+        .then(function (response) {
+          if (response.status === 200) {
+            vm.$router.push('thank')
+          }
+        })
+        .catch(error => console.log(error))
     }
   }
 }
@@ -92,9 +140,9 @@ export default {
   }
   &_empty {
     img {
-    width: 100%;
-    max-height: 250px;
-  }
+      width: 100%;
+      max-height: 250px;
+    }
   }
   ul {
     list-style: none;

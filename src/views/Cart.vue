@@ -2,7 +2,6 @@
   <main class="cart">
     <vBenefits />
     <v-cart heading="Cart" />
-    <router-link to="/thank" class="btn decoration-none">Thank page</router-link>
   </main>
 </template>
 
