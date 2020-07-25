@@ -86,14 +86,16 @@ export default {
       const arr = gsx.map((obj, index) => {
         // map создаёт новый массив который будет содержать только необходимые ключи с красивым названием
         return {
-          // если появятся новые столбцы с информацией их надо добавить в эту функцию
+          // если появятся новые столбцы с информацией их надо добавить в эту функцию, без нижнего подчеркивания
           id: index,
           published: obj.gsx$published.$t,
           category: obj.gsx$category.$t,
           title: obj.gsx$title.$t,
           description: obj.gsx$description.$t,
           price: obj.gsx$price.$t,
-          img: obj.gsx$imglink.$t.split('/view?')[0].split('d/')[1] // обрезаем лишнее в картинке
+          img: obj.gsx$imglink.$t.split('/view?')[0].split('d/')[1], // обрезаем лишнее в картинке
+          cream_type: obj.gsx$creamtype.$t.split(', '), // разделяем полученные парамерты по запятой с пробелом и превращаем строку в массив
+          cream_flavor: obj.gsx$creamflavor.$t.split(', ')
         }
       })
       this.ACT_PROCESSED_SPREADSHEETS_TO_STORE(arr)

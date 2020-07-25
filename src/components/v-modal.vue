@@ -13,6 +13,12 @@
       <div class="v-modal__content">
         <slot></slot>
       </div>
+      <v-select
+        :creamType="productCreamType"
+        @selectCreamType="selectedCreamType"
+        :creamFlavor="productCreamFlavor"
+        @selectCreamFlavor="selectedCreamFlavor"
+      />
       <div class="v-modal__footer">
         <input type="hidden" name="name" value="customer" />
         <input
@@ -33,9 +39,13 @@
 
 <script>
 import axios from 'axios'
+import vSelect from './v-select'
 
 export default {
   name: 'v-modal',
+  components: {
+    vSelect
+  },
   props: {
     rightBtntitle: {
       type: String,
@@ -52,6 +62,18 @@ export default {
     productPrice: {
       type: String,
       default: '0'
+    },
+    productCreamType: {
+      type: Array,
+      default: () => []
+    },
+    productCreamFlavor: {
+      type: Array,
+      default: () => []
+    },
+    isOptionProduct: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -61,6 +83,8 @@ export default {
         category_0: this.modalCategory,
         title_0: this.modalTitle,
         price_0: this.productPrice,
+        creamType_0: 'standart',
+        creamFlavor_0: 'standart',
         quantity_0: 1,
         name: 'Customer',
         phone: '',
@@ -85,6 +109,12 @@ export default {
           }
         })
         .catch(error => console.log(error))
+    },
+    selectedCreamType (option) { // встречаю функцию из дочернего v-select которая содержит опцию тип выбранного крема
+      this.fields.creamType_0 = option // подставляю переданную опцию в массив fields
+    },
+    selectedCreamFlavor (option) {
+      this.fields.creamFlavor_0 = option
     }
   },
   mounted () {

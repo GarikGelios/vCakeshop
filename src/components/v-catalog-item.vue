@@ -33,7 +33,11 @@
       >
         Buy now
       </button>
-      <button @click="addToCart" class="btn btn-empty btn-left">
+      <button @click="addToCart" v-if="!isOptionProduct" class="btn btn-empty btn-left">
+        Add to cart
+      </button>
+      <!-- Если опций у продукта нету то показываем другую кнопку с вызом модального окна для выбора опций -->
+      <button @click="showModal" v-if="isOptionProduct" class="btn btn-empty btn-left">
         Add to cart
       </button>
     </div>
@@ -44,6 +48,9 @@
       :modalCategory="product_data.category"
       :modalTitle="product_data.title"
       :productPrice="product_data.price"
+      :productCreamType="product_data.cream_type"
+      :productCreamFlavor="product_data.cream_flavor"
+      :isOptionProduct = "isOptionProduct"
     >
       <picture>
         <img
@@ -81,16 +88,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_CART'])
+    ...mapGetters(['GET_CART']),
+    isOptionProduct () { // проверяем есть ли у продукта различные опции по типу крема и аромату
+      if (this.product_data.cream_flavor[0] === '' || this.product_data.cream_type[0] === '') {
+        return false
+      } else {
+        return true
+      }
+    }
   },
   methods: {
     addToCart () {
       this.$emit('addToCart', this.product_data) // отправляю событие наверх, к родительскому компоненту со всем содержимым этого продукта
     },
-    addToCartAndLink () { // добавляет товар в корзину и перелинковывает в саму корзину
+    addToCartAndLink () {
+      // добавляет товар в корзину и перелинковывает в саму корзину
       this.addToCart()
       this.$router.push('/cart')
     },
+    addToCartOption () {},
     showModal () {
       this.isModalVisible = !this.isModalVisible // при вызове метода меняется состояние скрытности модального окна
     },
