@@ -21,7 +21,7 @@
         />
         <v-cart-item
           v-for="(cake, index) in this.GET_CART"
-          :key="cake.id"
+          :key="cake.uniqueProductWithOptions"
           :cake_in_cart_data="cake"
           :item_index="index"
           @delete="deleteFromCart(index)"

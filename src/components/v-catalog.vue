@@ -99,7 +99,10 @@ export default {
           cream_type_selected: obj.gsx$creamtype.$t.split(', ')[0], // первая позиция в списке по умолчанию является выбранной
           cream_flavor: obj.gsx$creamflavor.$t.split(', '),
           cream_flavor_selected: obj.gsx$creamflavor.$t.split(', ')[0],
-          uniqueProductWithOptions: index + obj.gsx$creamtype.$t.split(', ')[0] + obj.gsx$creamflavor.$t.split(', ')[0]
+          uniqueProductWithOptions:
+            index +
+            obj.gsx$creamtype.$t.split(', ')[0] +
+            obj.gsx$creamflavor.$t.split(', ')[0]
         }
       })
       this.ACT_PROCESSED_SPREADSHEETS_TO_STORE(arr)
@@ -109,7 +112,11 @@ export default {
     this.ACT_SPREADSHEETS_FROM_API() // как только компонент загружен, сразу вызываем api запрос на получение json из Google Таблиц
       .then(response => {
         if (response.data) {
-          console.log('Data arrived!')
+          console.log(
+            '%c%s',
+            'background-color: #A63E51; color: white; font: 1rem/1 Tahoma; padding: 1px 5px',
+            'Cakes from the DataBase loaded!'
+          )
           this.productsFromSpreadsheets() // и тут же превращаем в красивый массив
           this.sortedProducts = [...this.GET_PROCESSED_SPREADSHEETS]
         }

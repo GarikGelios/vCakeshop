@@ -15,17 +15,18 @@ export default {
       let isProductExists = false
       state.cart.map(function (item) {
         if (item.uniqueProductWithOptions === product.uniqueProductWithOptions) {
-          console.log(item.uniqueProductWithOptions)
-          console.log(product.uniqueProductWithOptions)
+          console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', 'Another one ' + item.category + ' "' + item.title + '" ' + item.cream_type_selected + ' / ' + item.cream_flavor_selected + ' has been added to cart.')
           isProductExists = true
           item.quantity++
         }
       })
       if (!isProductExists) {
         state.cart.push({ ...product, quantity: 1 })
+        console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', product.category + ' "' + product.title + '" ' + product.cream_type_selected + ' / ' + product.cream_flavor_selected + ' has been added to cart.')
       }
     } else {
       state.cart.push({ ...product, quantity: 1 })
+      console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', product.category + ' "' + product.title + '" ' + product.cream_type_selected + ' / ' + product.cream_flavor_selected + ' has been added to cart.')
     }
   },
   MUT_DECREMENT (state, index) {

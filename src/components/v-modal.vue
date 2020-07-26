@@ -21,7 +21,9 @@
         :cream_type_selected = "cream_type_selected"
         :cream_flavor_selected = "cream_flavor_selected"
       />
-      <div class="v-modal__footer" v-if="!isOptionProduct || clickBuyNowButtom === true">
+      <!-- быстрая форма заявки доступна, если в корзина пуста, смотрим по массиву GET_CART -->
+      <!-- <div class="v-modal__footer" v-if="!isOptionProduct || clickBuyNowButtom === true"> -->
+      <div class="v-modal__footer" v-if="!this.GET_CART.length && clickBuyNowButtom === true">
         <input type="hidden" name="name" value="customer" />
         <input
           type="text"
@@ -36,7 +38,7 @@
         </button>
       </div>
       <!-- чтобы не сабмитить форму это не button, а простая ссылка с отправкой события на верх к родителю -->
-      <a @click="addToCart" class="btn btn-empty" v-if="isOptionProduct && clickBuyNowButtom === false">
+      <a @click="addToCart" class="btn btn-empty" v-if="this.GET_CART.length && clickBuyNowButtom === true || clickAddToCartButton === true">
           Add to cart
         </a>
     </form>
@@ -46,6 +48,7 @@
 <script>
 import axios from 'axios'
 import vSelect from './v-select'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'v-modal',
@@ -85,6 +88,10 @@ export default {
       type: Boolean,
       default: true
     },
+    clickAddToCartButton: {
+      type: Boolean,
+      default: true
+    },
     cream_type_selected: {
       type: String,
       default: ''
@@ -109,6 +116,9 @@ export default {
         comment: 'Quick order form'
       }
     }
+  },
+  computed: {
+    ...mapGetters(['GET_CART'])
   },
   methods: {
     closeModalButton () {
