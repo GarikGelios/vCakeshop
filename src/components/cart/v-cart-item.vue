@@ -65,14 +65,14 @@
       </div>
       <div class="v-cart-item__quantity">
         <div class="v-cart-item__quantity_controls">
-          <span @click="decrementCake">-</span>
+          <p @click="decrementCake"><span>-</span></p>
           {{ cake_in_cart_data.quantity }}
           <input
             type="hidden"
             :name="'quantity_' + item_index"
             v-model="cake_in_cart_data.quantity"
           />
-          <span @click="incrementCake">+</span>
+          <p @click="incrementCake"><span>+</span></p>
         </div>
       </div>
       <button class="btn btn-white" @click="deleteFromCart">Delete</button>
@@ -138,8 +138,26 @@ export default {
         display: flex;
         flex-wrap: wrap;
         span {
-          padding: 0 $padding;
+          padding: 0 $padding 0 0;
         }
+      }
+    }
+  }
+  &__quantity {
+    margin: 0 $margin * 3;
+  }
+  &__quantity_controls {
+    display: flex;
+    align-items: center;
+    p {
+      margin: $margin;
+      cursor: pointer;
+      color: $color-dark;
+      border: 2px solid $color-primary;
+      border-radius: 50%;
+      span {
+        padding: $padding / 2;
+        font-weight: bold;
       }
     }
   }
@@ -147,12 +165,6 @@ export default {
     display: flex;
     align-items: center;
     flex-grow: 1;
-  }
-  &__quantity {
-    margin: 0 $margin * 3;
-    span {
-      cursor: pointer;
-    }
   }
 }
 </style>

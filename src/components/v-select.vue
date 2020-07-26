@@ -1,12 +1,16 @@
 <template>
   <div class="v-select">
     <div class="v-select_cream-type" v-if="isCreamType">
-      <p class="v-select_cream-type_select" @click="isOptionVisibleType = !isOptionVisibleType">
+      <p
+        class="v-select_cream-type_select"
+        @click="isOptionVisibleType = !isOptionVisibleType"
+      >
         Cream:
         {{ selectedCreamType }}
       </p>
       <div v-if="isOptionVisibleType">
-        <p class="v-select_cream-type_select_option"
+        <p
+          class="v-select_cream-type_select_option"
           v-for="option in creamType"
           :key="option"
           @click="selectOptionCreamType(option)"
@@ -16,12 +20,16 @@
       </div>
     </div>
     <div class="v-select_cream-flavor" v-if="isCreamFlavor">
-      <p class="v-select_cream-flavor_select" @click="isOptionVisibleFlavor = !isOptionVisibleFlavor">
+      <p
+        class="v-select_cream-flavor_select"
+        @click="isOptionVisibleFlavor = !isOptionVisibleFlavor"
+      >
         Flavor:
         {{ selectedCreamFlavor }}
       </p>
       <div v-if="isOptionVisibleFlavor">
-        <p class="v-select_cream-flavor_select_option"
+        <p
+          class="v-select_cream-flavor_select_option"
           v-for="option in creamFlavor"
           :key="option"
           @click="selectOptionCreamFlavor(option)"
@@ -63,14 +71,16 @@ export default {
     }
   },
   computed: {
-    isCreamType () { // проверяем не пустой ли массив типа крема
+    isCreamType () {
+      // проверяем не пустой ли массив типа крема
       if (this.creamType[0] === '') {
         return false
       } else {
         return true
       }
     },
-    isCreamFlavor () { // проверяем не пустой ли массив аромата крема
+    isCreamFlavor () {
+      // проверяем не пустой ли массив аромата крема
       if (this.creamFlavor[0] === '') {
         return false
       } else {
@@ -95,11 +105,26 @@ export default {
 </script>
 
 <style lang="scss">
-.v-select_cream-type, .v-select_cream-flavor{
+.v-select {
+  &_cream-type_select, &_cream-flavor_select {
+    color: $color-primary;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.v-select_cream-type,
+.v-select_cream-flavor {
   &_select {
     cursor: pointer;
     &_option {
       cursor: pointer;
+      text-align: right;
+      box-sizing: border-box;
+      height: 18px;
+      &:hover {
+        border-bottom: 2px solid $color-primary;
+      }
     }
   }
 }
