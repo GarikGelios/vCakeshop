@@ -11,7 +11,19 @@
           height="100"
         />
       </picture>
-      <h3>{{ cake_in_cart_data.category }} "{{ cake_in_cart_data.title }}"</h3>
+      <div class="v-cart-item_img-name_name">
+        <h3>
+          {{ cake_in_cart_data.category }} "{{ cake_in_cart_data.title }}"
+        </h3>
+        <div class="v-cart-item_img-name_name_options">
+          <span v-if="cake_in_cart_data.cream_type_selected">{{
+            'cream: ' + cake_in_cart_data.cream_type_selected
+          }}</span>
+          <span v-if="cake_in_cart_data.cream_flavor_selected">{{
+            'flavor: ' + cake_in_cart_data.cream_flavor_selected
+          }}</span>
+        </div>
+      </div>
       <input
         type="hidden"
         :name="'category_' + item_index"
@@ -23,14 +35,23 @@
         v-model="cake_in_cart_data.title"
       />
     </div>
-    <div class="v-cart-item_qnt-del" :class="{ 'justify-content-between': GET_WINDOW_TYPE=='Extra small', 'justify-content-end': GET_WINDOW_TYPE!='Extra small' }">
+    <div
+      class="v-cart-item_qnt-del"
+      :class="{
+        'justify-content-between': GET_WINDOW_TYPE == 'Extra small',
+        'justify-content-end': GET_WINDOW_TYPE != 'Extra small'
+      }"
+    >
       <div class="v-cart-item__price">
-        <strong>{{ cake_in_cart_data.price }} € / {{ cake_in_cart_data.price * cake_in_cart_data.quantity }} €</strong>
+        <strong
+          >{{ cake_in_cart_data.price }} € /
+          {{ cake_in_cart_data.price * cake_in_cart_data.quantity }} €</strong
+        >
         <input
-            type="hidden"
-            :name="'price_' + item_index"
-            v-model="cake_in_cart_data.price"
-          />
+          type="hidden"
+          :name="'price_' + item_index"
+          v-model="cake_in_cart_data.price"
+        />
       </div>
       <div class="v-cart-item__quantity">
         <div class="v-cart-item__quantity_controls">
@@ -99,6 +120,18 @@ export default {
     align-items: center;
     flex-grow: 1;
     justify-content: space-between;
+    &_name {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      &_options {
+        display: flex;
+        flex-wrap: wrap;
+        span {
+          padding: 0 $padding;
+        }
+      }
+    }
   }
   &_qnt-del {
     display: flex;

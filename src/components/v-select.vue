@@ -1,12 +1,12 @@
 <template>
   <div class="v-select">
     <div class="v-select_cream-type" v-if="isCreamType">
-      <p @click="isOptionVisibleType = !isOptionVisibleType">
+      <p class="v-select_cream-type_select" @click="isOptionVisibleType = !isOptionVisibleType">
         Cream:
         {{ selectedCreamType }}
       </p>
       <div v-if="isOptionVisibleType">
-        <p
+        <p class="v-select_cream-type_select_option"
           v-for="option in creamType"
           :key="option"
           @click="selectOptionCreamType(option)"
@@ -16,12 +16,12 @@
       </div>
     </div>
     <div class="v-select_cream-flavor" v-if="isCreamFlavor">
-      <p @click="isOptionVisibleFlavor = !isOptionVisibleFlavor">
+      <p class="v-select_cream-flavor_select" @click="isOptionVisibleFlavor = !isOptionVisibleFlavor">
         Flavor:
         {{ selectedCreamFlavor }}
       </p>
       <div v-if="isOptionVisibleFlavor">
-        <p
+        <p class="v-select_cream-flavor_select_option"
           v-for="option in creamFlavor"
           :key="option"
           @click="selectOptionCreamFlavor(option)"
@@ -44,14 +44,22 @@ export default {
     creamFlavor: {
       type: Array,
       default: () => []
+    },
+    cream_type_selected: {
+      type: String,
+      default: ''
+    },
+    cream_flavor_selected: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
       isOptionVisibleType: false, // по умолчанию скрыт блок с опциями
-      selectedCreamType: 'select', // по умолчанию текст выбранной опции
+      selectedCreamType: this.cream_type_selected, // по умолчанию текст выбранной опции
       isOptionVisibleFlavor: false,
-      selectedCreamFlavor: 'select'
+      selectedCreamFlavor: this.cream_flavor_selected
     }
   },
   computed: {
@@ -86,4 +94,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.v-select_cream-type, .v-select_cream-flavor{
+  &_select {
+    cursor: pointer;
+    &_option {
+      cursor: pointer;
+    }
+  }
+}
+</style>

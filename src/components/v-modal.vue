@@ -18,8 +18,10 @@
         @selectCreamType="selectedCreamType"
         :creamFlavor="productCreamFlavor"
         @selectCreamFlavor="selectedCreamFlavor"
+        :cream_type_selected = "cream_type_selected"
+        :cream_flavor_selected = "cream_flavor_selected"
       />
-      <div class="v-modal__footer">
+      <div class="v-modal__footer" v-if="!isOptionProduct || clickBuyNowButtom === true">
         <input type="hidden" name="name" value="customer" />
         <input
           type="text"
@@ -33,6 +35,10 @@
           {{ rightBtntitle }}
         </button>
       </div>
+      <!-- чтобы не сабмитить форму это не button, а простая ссылка с отправкой события на верх к родителю -->
+      <a @click="addToCart" class="btn btn-empty" v-if="isOptionProduct && clickBuyNowButtom === false">
+          Add to cart
+        </a>
     </form>
   </div>
 </template>
@@ -74,6 +80,18 @@ export default {
     isOptionProduct: {
       type: Boolean,
       default: true
+    },
+    clickBuyNowButtom: {
+      type: Boolean,
+      default: true
+    },
+    cream_type_selected: {
+      type: String,
+      default: ''
+    },
+    cream_flavor_selected: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -83,8 +101,8 @@ export default {
         category_0: this.modalCategory,
         title_0: this.modalTitle,
         price_0: this.productPrice,
-        creamType_0: 'standart',
-        creamFlavor_0: 'standart',
+        creamType_0: this.productCreamType[0],
+        creamFlavor_0: this.productCreamFlavor[0],
         quantity_0: 1,
         name: 'Customer',
         phone: '',
@@ -112,9 +130,14 @@ export default {
     },
     selectedCreamType (option) { // встречаю функцию из дочернего v-select которая содержит опцию тип выбранного крема
       this.fields.creamType_0 = option // подставляю переданную опцию в массив fields
+      this.$emit('selectedCreamType', option) // передать родительскому блоку тип крема
     },
     selectedCreamFlavor (option) {
       this.fields.creamFlavor_0 = option
+      this.$emit('selectedCreamFlavor', option)
+    },
+    addToCart () {
+      this.$emit('addToCartFromModal')
     }
   },
   mounted () {

@@ -61,7 +61,8 @@ export default {
     addToCart (data) {
       this.ACT_ADD_TO_CART(data).then(() => {
         const timeStamp = Date.now().toLocaleString() // уникальный id это время создания с точностью до милисекунды
-        this.messages.unshift({ // или push, смотря куда собираешся добавлять: в конец или в начало
+        this.messages.unshift({
+          // или push, смотря куда собираешся добавлять: в конец или в начало
           name: data.category + ' added to cart',
           id: timeStamp
         })
@@ -95,7 +96,10 @@ export default {
           price: obj.gsx$price.$t,
           img: obj.gsx$imglink.$t.split('/view?')[0].split('d/')[1], // обрезаем лишнее в картинке
           cream_type: obj.gsx$creamtype.$t.split(', '), // разделяем полученные парамерты по запятой с пробелом и превращаем строку в массив
-          cream_flavor: obj.gsx$creamflavor.$t.split(', ')
+          cream_type_selected: obj.gsx$creamtype.$t.split(', ')[0], // первая позиция в списке по умолчанию является выбранной
+          cream_flavor: obj.gsx$creamflavor.$t.split(', '),
+          cream_flavor_selected: obj.gsx$creamflavor.$t.split(', ')[0],
+          uniqueProductWithOptions: index + obj.gsx$creamtype.$t.split(', ')[0] + obj.gsx$creamflavor.$t.split(', ')[0]
         }
       })
       this.ACT_PROCESSED_SPREADSHEETS_TO_STORE(arr)

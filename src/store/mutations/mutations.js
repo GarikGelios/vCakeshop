@@ -14,7 +14,9 @@ export default {
       // если в state массива корзине количество товара не нулевое
       let isProductExists = false
       state.cart.map(function (item) {
-        if (item.id === product.id) {
+        if (item.uniqueProductWithOptions === product.uniqueProductWithOptions) {
+          console.log(item.uniqueProductWithOptions)
+          console.log(product.uniqueProductWithOptions)
           isProductExists = true
           item.quantity++
         }

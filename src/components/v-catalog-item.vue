@@ -21,7 +21,7 @@
       <button
         v-if="GET_CART.length == 0"
         class="btn btn-right"
-        @click="showModal"
+        @click="showModalBuyNow"
       >
         Buy now
       </button>
@@ -37,7 +37,7 @@
         Add to cart
       </button>
       <!-- Если опций у продукта нету то показываем другую кнопку с вызом модального окна для выбора опций -->
-      <button @click="showModal" v-if="isOptionProduct" class="btn btn-empty btn-left">
+      <button @click="showModalAddToCart" v-if="isOptionProduct" class="btn btn-empty btn-left">
         Add to cart
       </button>
     </div>
@@ -51,6 +51,12 @@
       :productCreamType="product_data.cream_type"
       :productCreamFlavor="product_data.cream_flavor"
       :isOptionProduct = "isOptionProduct"
+      :clickBuyNowButtom = "clickBuyNowButtom"
+      :cream_type_selected = "this.product_data.cream_type_selected"
+      :cream_flavor_selected = "this.product_data.cream_flavor_selected"
+      @selectedCreamType = "selectedCreamType"
+      @selectedCreamFlavor = "selectedCreamFlavor"
+      @addToCartFromModal = "addToCartFromModal"
     >
       <picture>
         <img
@@ -84,7 +90,8 @@ export default {
   },
   data () {
     return {
-      isModalVisible: false // по-умолчанию модальное окно скрыто
+      isModalVisible: false, // по-умолчанию модальное окно скрыто
+      clickBuyNowButtom: false
     }
   },
   computed: {
@@ -106,12 +113,28 @@ export default {
       this.addToCart()
       this.$router.push('/cart')
     },
-    addToCartOption () {},
-    showModal () {
+    showModalBuyNow () {
+      this.isModalVisible = !this.isModalVisible // при вызове метода меняется состояние скрытности модального окна
+      this.clickBuyNowButtom = !this.clickBuyNowButtom // отмечаем что была кликнута кнопка Buy now
+    },
+    showModalAddToCart () {
       this.isModalVisible = !this.isModalVisible // при вызове метода меняется состояние скрытности модального окна
     },
     closeModal () {
-      this.showModal()
+      this.showModalBuyNow() // т.к. модальное окно одно и то же достаточно обратить к одному событию которое его закроет
+      this.clickBuyNowButtom = false // возвращаем состояние клика по кнопке Buy Now к состоянию false
+    },
+    selectedCreamType (option) { // полученное значение выбранной опции помещаем в объект product_data
+      this.product_data.cream_type_selected = option // вместо выставленного по умолчанию первого в массиве
+      this.product_data.uniqueProductWithOptions = this.product_data.id + option + this.product_data.cream_flavor_selected
+    },
+    selectedCreamFlavor (option) {
+      this.product_data.cream_flavor_selected = option
+      this.product_data.uniqueProductWithOptions = this.product_data.id + this.product_data.cream_type_selected + option
+    },
+    addToCartFromModal () {
+      this.$emit('addToCart', this.product_data)
+      this.closeModal()
     }
   }
 }
