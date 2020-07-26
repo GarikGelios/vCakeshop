@@ -34,6 +34,16 @@
         :name="'title_' + item_index"
         v-model="cake_in_cart_data.title"
       />
+      <input
+        type="hidden"
+        :name="'creamType_' + item_index"
+        v-model="cake_in_cart_data.cream_type_selected"
+      />
+      <input
+        type="hidden"
+        :name="'creamFlavor_' + item_index"
+        v-model="cake_in_cart_data.cream_flavor_selected"
+      />
     </div>
     <div
       class="v-cart-item_qnt-del"

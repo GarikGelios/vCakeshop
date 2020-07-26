@@ -92,6 +92,8 @@ export default {
       for (let i = 0; i < this.GET_CART.length; i++) {
         arrItems['category_' + i] = this.GET_CART[i].category
         arrItems['title_' + i] = this.GET_CART[i].title
+        arrItems['creamType_' + i] = this.GET_CART[i].cream_type_selected
+        arrItems['creamFlavor_' + i] = this.GET_CART[i].cream_flavor_selected
         arrItems['price_' + i] = this.GET_CART[i].price
         arrItems['quantity_' + i] = this.GET_CART[i].quantity
       }
