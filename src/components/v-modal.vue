@@ -18,12 +18,15 @@
         @selectCreamType="selectedCreamType"
         :creamFlavor="productCreamFlavor"
         @selectCreamFlavor="selectedCreamFlavor"
-        :cream_type_selected = "cream_type_selected"
-        :cream_flavor_selected = "cream_flavor_selected"
+        :cream_type_selected="cream_type_selected"
+        :cream_flavor_selected="cream_flavor_selected"
       />
       <!-- быстрая форма заявки доступна, если в корзина пуста, смотрим по массиву GET_CART -->
       <!-- <div class="v-modal__footer" v-if="!isOptionProduct || clickBuyNowButtom === true"> -->
-      <div class="v-modal__footer" v-if="!this.GET_CART.length && clickBuyNowButtom === true">
+      <div
+        class="v-modal__footer"
+        v-if="!this.GET_CART.length && clickBuyNowButtom === true"
+      >
         <input type="hidden" name="name" value="customer" />
         <input
           type="text"
@@ -38,9 +41,16 @@
         </button>
       </div>
       <!-- чтобы не сабмитить форму это не button, а простая ссылка с отправкой события на верх к родителю -->
-      <a @click="addToCart" class="btn btn-empty" v-if="this.GET_CART.length && clickBuyNowButtom === true || clickAddToCartButton === true">
-          Add to cart
-        </a>
+      <a
+        @click="addToCart"
+        class="btn btn-empty"
+        v-if="
+          (this.GET_CART.length && clickBuyNowButtom === true) ||
+            clickAddToCartButton === true
+        "
+      >
+        Add to cart
+      </a>
     </form>
   </div>
 </template>
@@ -138,7 +148,8 @@ export default {
         })
         .catch(error => console.log(error))
     },
-    selectedCreamType (option) { // встречаю функцию из дочернего v-select которая содержит опцию тип выбранного крема
+    selectedCreamType (option) {
+      // встречаю функцию из дочернего v-select которая содержит опцию тип выбранного крема
       this.fields.creamType_0 = option // подставляю переданную опцию в массив fields
       this.$emit('selectedCreamType', option) // передать родительскому блоку тип крема
     },
@@ -194,6 +205,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    img {
+      max-width: 300px;
+      max-height: 300px;
+    }
   }
   input {
     @include input;

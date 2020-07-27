@@ -8,11 +8,15 @@
             'https://drive.google.com/uc?export=view&id=' + product_data.img
           "
           alt="cake"
-          width="300"
         />
       </picture>
-      <h3>{{ product_data.category }} "{{ product_data.title }}"</h3>
-      <p>{{ product_data.description }}</p>
+      <div
+        class="v-catalog-item_description_text"
+        :class="{ basis130: GET_WINDOW_TYPE == 'Extra large' }"
+      >
+        <h3>{{ product_data.category }} "{{ product_data.title }}"</h3>
+        <p>{{ product_data.description }}</p>
+      </div>
     </div>
     <div class="v-catalog-item_price-and-button">
       <p>
@@ -22,14 +26,20 @@
       <button
         v-if="GET_CART.length == 0"
         class="btn btn-right"
-        @click="showModalBuyNow(); clickBuyNowButtom = true"
+        @click="
+          showModalBuyNow()
+          clickBuyNowButtom = true
+        "
       >
         Buy now
       </button>
       <!-- вызываю метод добавления в корзину -->
       <button
         v-if="GET_CART.length && !isOptionProduct"
-        @click="addToCartAndLink(); clickBuyNowButtom = true"
+        @click="
+          addToCartAndLink()
+          clickBuyNowButtom = true
+        "
         class="btn btn-right decoration-none"
       >
         Buy now
@@ -37,7 +47,10 @@
       <!-- если в корзине уже есть товары и у товара есть опции, то кнопка Buy now вызывает модальное окно для выбора опций-->
       <button
         v-if="GET_CART.length && isOptionProduct"
-        @click="showModalAddToCart(); clickBuyNowButtom = true"
+        @click="
+          showModalAddToCart()
+          clickBuyNowButtom = true
+        "
         class="btn btn-right decoration-none"
       >
         Buy now
@@ -52,7 +65,10 @@
       </button>
       <!-- если у товара есть опции то показывает другую кнопку с вызом модального окна, где будут отображены опции -->
       <button
-        @click="showModalAddToCart(); clickAddToCartButton = true"
+        @click="
+          showModalAddToCart()
+          clickAddToCartButton = true
+        "
         v-if="isOptionProduct"
         class="btn btn-empty btn-left"
       >
@@ -70,7 +86,7 @@
       :productCreamFlavor="product_data.cream_flavor"
       :isOptionProduct="isOptionProduct"
       :clickBuyNowButtom="clickBuyNowButtom"
-      :clickAddToCartButton = "clickAddToCartButton"
+      :clickAddToCartButton="clickAddToCartButton"
       :cream_type_selected="this.product_data.cream_type_selected"
       :cream_flavor_selected="this.product_data.cream_flavor_selected"
       @selectedCreamType="selectedCreamType"
@@ -83,7 +99,6 @@
             'https://drive.google.com/uc?export=view&id=' + product_data.img
           "
           alt="cake"
-          width="300"
         />
       </picture>
     </v-modal>
@@ -115,7 +130,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_CART']),
+    ...mapGetters(['GET_CART', 'GET_WINDOW_TYPE']),
     isOptionProduct () {
       // проверяем есть ли у продукта различные опции по типу крема и аромату
       if (
@@ -183,6 +198,19 @@ export default {
   padding: $padding * 2;
   .btn {
     font-size: 13px;
+  }
+  &_description {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    img {
+      max-width: 300px;
+      max-height: 300px;
+    }
+    .basis130 {
+      flex-basis: 130px;
+    }
   }
 }
 </style>
