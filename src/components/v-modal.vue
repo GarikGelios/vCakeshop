@@ -8,6 +8,7 @@
         <input type="hidden" name="title_0" v-model="modalTitle" />
         <input type="hidden" name="price_0" v-model="productPrice" />
         <input type="hidden" name="quantity_0" value="1" />
+        <input type="hidden" name="total" v-model="productPrice" />
         <span class="v-modal__header_close" @click="closeModalButton">X</span>
       </div>
       <div class="v-modal__content">
@@ -121,6 +122,7 @@ export default {
         creamType_0: this.productCreamType[0],
         creamFlavor_0: this.productCreamFlavor[0],
         quantity_0: 1,
+        total: this.productPrice,
         name: 'Customer',
         phone: '',
         comment: 'Quick order form'

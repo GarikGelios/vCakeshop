@@ -1,6 +1,7 @@
 <template>
   <main class="v-thank">
     <h2>Thank you for your order!</h2>
+    <h3>Your order has been accepted, and soon you will be contacted at the specified phone number to clarify the details</h3>
     <picture class="v-cart_empty">
       <source
         srcset="@/assets/thank-cake.svg"

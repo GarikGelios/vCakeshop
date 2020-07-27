@@ -6,12 +6,13 @@ module.exports = function content(cart){ // функция для сбора т�
   let listItems = arrItems.join('') // склеиваем массив в одну строку
 
   let emailTemplate = `
-<p>You have a new message from vCakeShop:</p>
-<p>HELLO</p>
+<p>HELLO!</p>
+<p>You have a new order from vCakeShop:</p>
 ${cart.typesOfCakeInCart} type of cake
 <ul>
 ${listItems}
 </ul>
+<p>Total: ${cart.total} €</p>
 <p> ${cart.name} : ${cart.phone} </p>
 <p> ${cart.comment} </p>
 `

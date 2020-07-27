@@ -29,6 +29,7 @@
           @increment="increment(index)"
         />
       </ul>
+      <h3>Total: {{ sumInCart }} €</h3>
       <div class="v-cart_info">
         <div class="v-cart_info-personal">
           <input
@@ -97,10 +98,19 @@ export default {
         arrItems['price_' + i] = this.GET_CART[i].price
         arrItems['quantity_' + i] = this.GET_CART[i].quantity
       }
+      arrItems.total = this.sumInCart
       arrItems.name = this.name
       arrItems.phone = this.phone
       arrItems.comment = this.comment
       return arrItems
+    },
+    sumInCart () {
+      let sum = 0
+      for (const el in this.GET_CART) {
+        const totalProduct = this.GET_CART[el].price * this.GET_CART[el].quantity
+        sum += totalProduct
+      }
+      return sum
     }
   },
   methods: {
@@ -125,6 +135,7 @@ export default {
         .then(function (response) {
           if (response.status === 200) {
             vm.$router.push('thank')
+            vm.GET_CART.length = 0
           }
         })
         .catch(error => console.log(error))
