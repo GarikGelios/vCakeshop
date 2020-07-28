@@ -10,5 +10,8 @@ export default {
   },
   GET_CART (state) {
     return state.cart
+  },
+  GET_COUNT_CAKE_IN_CART (state) {
+    return state.cakeInCart
   }
 }

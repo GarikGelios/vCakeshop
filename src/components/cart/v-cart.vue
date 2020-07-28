@@ -107,7 +107,8 @@ export default {
     sumInCart () {
       let sum = 0
       for (const el in this.GET_CART) {
-        const totalProduct = this.GET_CART[el].price * this.GET_CART[el].quantity
+        const totalProduct =
+          this.GET_CART[el].price * this.GET_CART[el].quantity
         sum += totalProduct
       }
       return sum
@@ -117,7 +118,8 @@ export default {
     ...mapActions([
       'ACT_DECREMENT_CART_ITEM',
       'ACT_INCREMENT_CART_ITEM',
-      'ACT_DELETE_FROM_CART'
+      'ACT_DELETE_FROM_CART',
+      'ACT_COUNT_CAKE_IN_CART'
     ]),
     decrement (index) {
       this.ACT_DECREMENT_CART_ITEM(index)
@@ -129,6 +131,9 @@ export default {
       this.ACT_DELETE_FROM_CART(index)
     },
     submit () {
+      // this.GET_CART.length = 0
+      // this.$router.push('thank')
+      // this.ACT_COUNT_CAKE_IN_CART()
       const vm = this
       axios
         .post('/', this.dataForm)
@@ -136,6 +141,7 @@ export default {
           if (response.status === 200) {
             vm.$router.push('thank')
             vm.GET_CART.length = 0
+            vm.ACT_COUNT_CAKE_IN_CART() // просим пересчитать количество пирожков
           }
         })
         .catch(error => console.log(error))

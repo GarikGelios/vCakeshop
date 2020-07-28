@@ -15,7 +15,8 @@ export default new Vuex.Store({
     windowSize: '', // размер экрана
     spreadsheets: [], // данные из Google Таблицы
     products: [], // очищенные данные из Google Таблицы
-    cart: [] // товары в корзине
+    cart: [], // товары в корзине
+    cakeInCart: '0'
   },
   mutations,
   actions,

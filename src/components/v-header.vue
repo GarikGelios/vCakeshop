@@ -29,7 +29,7 @@
           >
         </div>
         <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
-          Cart: {{ productsInCart }} cake
+          Cart: {{ this.GET_COUNT_CAKE_IN_CART }} cake
         </router-link>
       </div>
     </div>
@@ -42,16 +42,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'v-header',
   computed: {
-    ...mapGetters(['GET_CART']),
-    productsInCart () {
-      if (this.GET_CART.length === 0) {
-        return 0 // по умолчанию в корзине 0
-      } else {
-        return this.GET_CART.reduce(function (sum, cake) {
-          return sum + cake.quantity // считаю количество продукта каждого вида, сумма всех quantity продуктов в корзине
-        }, 0)
-      }
-    }
+    ...mapGetters(['GET_COUNT_CAKE_IN_CART'])
   },
   data () {
     return {

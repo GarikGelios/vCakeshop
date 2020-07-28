@@ -14,19 +14,55 @@ export default {
       // если в state массива корзине количество товара не нулевое
       let isProductExists = false
       state.cart.map(function (item) {
-        if (item.uniqueProductWithOptions === product.uniqueProductWithOptions) {
-          console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', 'Another one ' + item.category + ' "' + item.title + '" ' + item.cream_type_selected + ' / ' + item.cream_flavor_selected + ' has been added to cart.')
+        if (
+          item.uniqueProductWithOptions === product.uniqueProductWithOptions
+        ) {
+          console.log(
+            '%c%s',
+            'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px',
+            'Another one ' +
+              item.category +
+              ' "' +
+              item.title +
+              '" ' +
+              item.cream_type_selected +
+              ' / ' +
+              item.cream_flavor_selected +
+              ' has been added to cart.'
+          )
           isProductExists = true
           item.quantity++
         }
       })
       if (!isProductExists) {
         state.cart.push({ ...product, quantity: 1 })
-        console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', product.category + ' "' + product.title + '" ' + product.cream_type_selected + ' / ' + product.cream_flavor_selected + ' has been added to cart.')
+        console.log(
+          '%c%s',
+          'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px',
+          product.category +
+            ' "' +
+            product.title +
+            '" ' +
+            product.cream_type_selected +
+            ' / ' +
+            product.cream_flavor_selected +
+            ' has been added to cart.'
+        )
       }
     } else {
       state.cart.push({ ...product, quantity: 1 })
-      console.log('%c%s', 'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px', product.category + ' "' + product.title + '" ' + product.cream_type_selected + ' / ' + product.cream_flavor_selected + ' has been added to cart.')
+      console.log(
+        '%c%s',
+        'background-color: white; color: #A63E51; font: 1rem/1 Tahoma; padding: 0 5px',
+        product.category +
+          ' "' +
+          product.title +
+          '" ' +
+          product.cream_type_selected +
+          ' / ' +
+          product.cream_flavor_selected +
+          ' has been added to cart.'
+      )
     }
   },
   MUT_DECREMENT (state, index) {
@@ -39,5 +75,17 @@ export default {
   },
   MUT_REMOVE_FROM_CART: (state, index) => {
     state.cart.splice(index, 1)
+  },
+  MUT_COUNT_CAKE_IN_CART: (state) => {
+    state.cakeInCart = cake()
+    function cake () {
+      if (state.cart.length === 0) {
+        return 0 // по умолчанию в корзине 0
+      } else {
+        return state.cart.reduce(function (sum, cake) {
+          return sum + cake.quantity // считаю количество продукта каждого вида, сумма всех quantity продуктов в корзине
+        }, 0)
+      }
+    }
   }
 }
