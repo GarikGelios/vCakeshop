@@ -2,12 +2,12 @@
   <header class="v-header">
     <div class="v-header_wraper">
       <router-link to="/">
-        <picture>
+        <picture class="logo">
           <img
             src="@/assets/logo/logo.png"
             alt="logo"
-            width="100"
-            height="100"
+            width="120"
+            height="120"
           />
         </picture>
       </router-link>
@@ -62,6 +62,10 @@ export default {
     max-width: $screenwidth * 2;
     padding: $padding;
     margin: auto;
+    .logo {
+      position: absolute;
+      top: 0;
+    }
   }
   &_contacts {
     display: flex;
