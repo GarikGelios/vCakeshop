@@ -3,14 +3,12 @@ const nodemailer = require('nodemailer')
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-  service: 'Gmail', // настройки уже описаны в \node_modules\nodemailer\lib\well-known\services.json
+  host: 'mailbe05.hoster.by', // Сервер исходящей почты (SMTP) из настроек hoster.by
+  port: 465,
+  secure: true, // true for 465, false for other ports
   auth: {
-    type: 'OAuth2',
-    user: process.env.VUE_APP_EMAIL, // тянется из .env
-    refreshToken: process.env.VUE_APP_EMAIL_REFRESH_TOKEN,
-    clientId: process.env.VUE_APP_EMAIL_CLIENT_ID,
-    clientSecret: process.env.VUE_APP_EMAIL_CLIENT_SECRET,
-    accessUrl: 'https://oauth2.googleapis.com/token'
+    user: process.env.EMAIL, // тянется из .env
+    pass: process.env.PASSWORD // тянется из .env
   }
 })
 
