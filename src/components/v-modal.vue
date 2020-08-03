@@ -190,7 +190,7 @@ export default {
   padding: $padding * 2;
   position: fixed;
   top: 50px;
-  width: 400px;
+  max-width: 400px;
   background: white;
   border-radius: $radius * 2;
   z-index: 10;
@@ -201,6 +201,9 @@ export default {
     align-items: center;
     &_close {
       cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
   }
   &__content {
