@@ -1,9 +1,6 @@
 <template>
   <div id="app" class="app">
     <main>
-      <small class="app_window-size"
-        >window size: {{ this.GET_WINDOW_TYPE }}</small
-      >
       <v-header />
       <router-view />
     </main>
