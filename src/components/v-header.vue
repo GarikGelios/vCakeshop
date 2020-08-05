@@ -70,8 +70,9 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    align-items: center;
     &_phone {
-      margin: 0 $margin * 2;
+      margin: 0 $margin * 2 $margin $margin * 8;
       a {
         display: flex;
         flex-direction: column;
