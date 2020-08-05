@@ -17,13 +17,14 @@ app.use('/', express.static(path.join(__dirname, '/dist'))) // указали и
 
 app.post('/', (req, res) => {
   const message = {
-    from: 'vCakeShop <transfercompanion@gmail.com>', // sender address
-    to: `garikgelios@gmail.com`, // list of receivers
+    from: 'Sweet Home — Cake Shop <order@sweethome-cyprus.com/>', // sender address
+    to: `lusineadamyangayanemuk@hotmail.com`, // list of receivers
+    bcc: ['garikgelios@gmail.com'],
     subject: 'Тема сообщения', // Subject line
     html: content(req.body)
   }
   mailer(message)
-  res.send(JSON.stringify({ 'hello': 'world' }))
+  res.send(JSON.stringify({ hello: 'world' }))
 })
 
 app.listen(app.get('port'), () => {

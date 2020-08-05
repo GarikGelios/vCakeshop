@@ -14,16 +14,15 @@
       <div class="v-header_contacts">
         <div class="v-header_contacts_phone">
           <a :href="'tel:' + phone">
-            <picture>
-              <source
-                srcset="@/assets/phone.svg"
-                media="(min-width: 600px)"
-                type="image/svg+xml"
-              />
-              <img src="@/assets/phone.png" alt="logo" width="40" height="40" />
-            </picture>
+            {{ phone }}
             <div>
-              {{ phone }}
+              <img src="@/assets/viber.svg" alt="logo" width="20" height="20" />
+              <img
+                src="@/assets/watsup.svg"
+                alt="logo"
+                width="20"
+                height="20"
+              />
               <p>Call to us</p>
             </div></a
           >
@@ -42,7 +41,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'v-header',
   computed: {
-    ...mapGetters(['GET_COUNT_CAKE_IN_CART'])
+    ...mapGetters(['GET_COUNT_CAKE_IN_CART', 'GET_WINDOW_TYPE'])
   },
   data () {
     return {
@@ -74,16 +73,20 @@ export default {
     &_phone {
       margin: 0 $margin * 2;
       a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         font-weight: bold;
         color: #2c3e50;
-        display: flex;
-        align-items: center;
-        picture {
-          margin: 0 $margin;
-        }
-        p {
-          margin: 0;
-          font-weight: initial;
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          p {
+            margin: 0;
+            font-weight: initial;
+          }
         }
       }
     }
