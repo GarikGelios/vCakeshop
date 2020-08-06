@@ -17,10 +17,10 @@ app.use('/', express.static(path.join(__dirname, '/dist'))) // указали и
 
 app.post('/', (req, res) => {
   const message = {
-    from: 'Sweet Home — Cake Shop <order@sweethome-cyprus.com/>', // sender address
+    from: 'Sweet Home — Cake Shop <order@sweethome-cyprus.com>', // sender address
     to: `order@sweethome-cyprus.com`, // list of receivers
-    cc: ['lusineadamyangayanemuk@hotmail.com'],
-    bcc: ['garikgelios@gmail.com'],
+    cc: ['lusineadamyan07@gmail.com'],
+    // bcc: ['garikgelios@gmail.com'],
     subject: 'Тема сообщения', // Subject line
     html: content(req.body)
   }
