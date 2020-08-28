@@ -22,17 +22,19 @@ export default {
 <style lang="scss">
 .v-footer {
   &_divider {
-    background-image: url('../assets/stroke.svg');
+    // background-image: url('../assets/stroke.svg');
     background-position: bottom;
     background-repeat: repeat-x;
     height: 100px;
     display: flex;
   }
   &_wraper {
-    background-color: $color-bg;
+    // background-color: $color-bg;
+    background-color: $color-dark;
     p {
       margin: 0;
       padding: $padding;
+      color: $color-light;
     }
     a {
       margin: $margin;

@@ -153,7 +153,8 @@ export default {
       margin: $margin;
       cursor: pointer;
       color: $color-dark;
-      border: 2px solid $color-primary;
+      // border: 2px solid $color-primary;
+      border: 2px solid $color-dark;
       border-radius: 50%;
       span {
         padding: $padding / 2;

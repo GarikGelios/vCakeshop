@@ -12,21 +12,25 @@
 }
 
 @mixin btn {
-  background-color: $color-primary;
-  color: $color-light;
+  // background-color: $color-primary;
+  // color: $color-light;
+  color: $color-dark;
   border-radius: 50px;
-  border: 1px solid $color-primary;
+  // border: 1px solid $color-primary;
+  border: 1px solid $color-dark;
   padding: $padding $padding*3;
   transition: .2s;
 
   cursor: pointer;
   &-empty {
     background: transparent;
-    color: $color-primary;
+    // color: $color-primary;
+    color: $color-dark;
   }
   &-white {
     background: transparent;
-    color: $color-primary;
+    // color: $color-primary;
+    color: $color-dark;
     border: 0;
   }
   &:focus{
@@ -43,7 +47,8 @@
 @mixin input {
   padding: $padding;
   border-radius: 50px;
-  border: 1px solid $color-primary;
+  // border: 1px solid $color-primary;
+  border: 1px solid $color-dark;
   margin: $margin $margin*2;
   outline: none;
 }

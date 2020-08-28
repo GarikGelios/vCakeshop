@@ -98,7 +98,8 @@ export default {
     border-width: 2px;
 
     &.router-link-exact-active {
-      color: #a63e51;
+      // color: #a63e51;
+      color: $color-dark;
       font-weight: 700;
     }
   }

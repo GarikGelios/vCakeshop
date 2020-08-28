@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss">
 .v-firstscreen {
-  background-color: $color-bg;
+  // background-color: $color-bg;
   article {
     display: flex;
     justify-content: space-around;
@@ -53,7 +53,7 @@ export default {
         font-family: 'Concert One', cursive;
         text-transform: uppercase;
         font-size: 36px;
-        color: $color-primary;
+        // color: $color-primary;
       }
       p {
         text-align: left;
