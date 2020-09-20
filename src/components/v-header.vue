@@ -13,19 +13,23 @@
       </router-link>
       <div class="v-header_contacts">
         <div class="v-header_contacts_phone">
-          <a :href="'tel:' + phone">
-            {{ phone }}
-            <div>
-              <img src="@/assets/viber.svg" alt="logo" width="20" height="20" />
-              <img
-                src="@/assets/watsup.svg"
-                alt="logo"
-                width="20"
-                height="20"
-              />
-              <p>Call to us</p>
-            </div></a
+          <a :href="'viber://chat?number=%2B' + phone"
+            ><img src="@/assets/viber.svg" alt="logo" width="17" height="17" />
+            Viber</a
           >
+          <a :href="'https://wa.me/' + phone"
+            ><img src="@/assets/watsup.svg" alt="logo" width="17" height="17" />
+            WatsApp</a
+          >
+          <a :href="'tel:+' + phone">
+            <img
+              src="@/assets/smartphone-sending-data.svg"
+              alt="logo"
+              width="17"
+              height="17"
+            />
+            +{{ phone }}
+          </a>
         </div>
         <router-link to="/cart" class="v-header_contacts_button btn btn-empty">
           Cart: {{ this.GET_COUNT_CAKE_IN_CART }} cake
@@ -45,7 +49,7 @@ export default {
   },
   data () {
     return {
-      phone: '(+357) 97669451'
+      phone: '35797669451'
     }
   }
 }
@@ -72,23 +76,14 @@ export default {
     justify-content: flex-end;
     align-items: center;
     &_phone {
-      margin: 0 $margin * 2 $margin $margin * 8;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin: 0 0 0 $margin * 15;
+      text-align: end;
       a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-weight: bold;
-        color: #2c3e50;
-        div {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          p {
-            margin: 0;
-            font-weight: initial;
-          }
-        }
+        color: $color-dark;
+        padding: $padding/2 $padding;
       }
     }
   }
@@ -98,7 +93,6 @@ export default {
     border-width: 2px;
 
     &.router-link-exact-active {
-      // color: #a63e51;
       color: $color-dark;
       font-weight: 700;
     }
